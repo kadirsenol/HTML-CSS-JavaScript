@@ -12,6 +12,7 @@
 
     <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet" /> <!--Local Bootstrap konum linki-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"> <!--Bootstrap icon linki-->
+    <link href="../css/site.css" rel="stylesheet" />  <!--Benim olusturdugum localimde ki css dosya baglanti linki--> 
 
     <nav class="navbar navbar-expand-sm bg-danger navbar-dark">
         <div class="container justify-content-center">
@@ -30,27 +31,34 @@
     
 </head>
 
-<body> <!--Sayfanin gövde kismidir, gösterilecek tüm bilgileri icerir-->
+<body > <!--Sayfanin gövde kismidir, gösterilecek tüm bilgileri icerir-->
 
    
     <div class="container mt-3" >
         <h3>Personel Kayıt <i class="bi bi-person-fill-add"></i> </h3> 
-        <div class="row ">
+        <div class="row">
             <div class="col-5">
 
-                <form action="#">
+                <form action="#" id="persoregister">
 
                     <div class="form-group">
                         <label for="isim" class="col-form-label">İsim Giriniz</label>
                         <input class="form-control" id="isim" type="text" name="isim" value="" />
 
-                        <label for="Soyisim" class="col-form-label">Soyisim Giriniz</label>
-                        <input class="form-control" id="Soyisim" type="text" name="Soyisim" value="" />
+                        <label for="soyisim" class="col-form-label">Soyisim Giriniz</label>
+                        <input class="form-control" id="soyisim" type="text" name="soyisim" value="" />
                     </div>
-
-
-
+                    <div>
+                        <button type="submit" class=" btn btn-success mt-2">Kayıt</button>
+                    </div>
+                    <div>
+                        <button type="reset" class="btn-group mt-1" onclick="clear()"> Reset </button>
+                    </div>
+                    
                 </form>
+
+                
+
             </div>
             
         <div>
@@ -58,7 +66,7 @@
    </div>
 
 
-
+        <script src="../javascript/javaScript.js"></script>
 
 </body>
 </html>
