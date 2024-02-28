@@ -10,7 +10,12 @@ namespace ASP.Net_Core_Empty
 
             app.UseStaticFiles();//root klasorunun public edilmesi.
 
-            app.MapGet("/", () => "Hello World!");
+            app.MapGet("/", async context =>
+            {
+                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/html/Index.html");
+                var content = await File.ReadAllTextAsync(filePath);
+                await context.Response.WriteAsync(content);
+            });
 
             app.Run();
         }
