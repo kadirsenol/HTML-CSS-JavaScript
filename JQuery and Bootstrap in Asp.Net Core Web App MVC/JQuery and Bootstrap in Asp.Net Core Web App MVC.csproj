@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>JQuery_and_Bootstrap_in_Asp.Net_Core_Web_App_MVC</RootNamespace>
+  </PropertyGroup>
+
+</Project>
