@@ -1,6 +1,8 @@
-﻿<!DOCTYPE html> <!--Bu sayfanin bir html5 sayfasi oldugunu belirtir-->
+﻿<!DOCTYPE html>
+ <!--Bu sayfanin bir html5 sayfasi oldugunu belirtir-->
 
-<html lang="en"> <!--HTML tagi ile html kod baslangici ve Dil Bilgisi tanimlanir-->
+<html lang="en">
+ <!--HTML tagi ile html kod baslangici ve Dil Bilgisi tanimlanir-->
 
 <head>
     <!--Link bağlantilari, baslik konfigurasyonlari ve meta(genel sayfa bilgisi) bilgileri bulunur-->
@@ -11,13 +13,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 
-    <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet" /> <!--Local Bootstrap konum linki-->
+    <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet" /> <!--Local Bootstrap konum linki, bunun web baglanti linkinide terci edebilirdik.-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"> <!--Bootstrap icon linki-->
     <link href="../css/site.css" rel="stylesheet" />  <!--Benim olusturdugum localimde ki css dosya baglanti linki-->
 
+
+
+</head>
+
+<body>
+    <!--Sayfanin gövde kismidir, gösterilecek tüm bilgileri icerir-->
+
     <nav class="navbar navbar-expand-sm bg-danger navbar-dark">
         <div class="container justify-content-center">
-            <d class="navbar-brand">
+            <div class="navbar-brand">
                 <span class="ms-5 ">
                     <img src="https://yildirim23nolukarapinarasm.com/images/uploads/fade68c1b213093524_images-personel-erkek_QBNW.jpg" alt="Avatar Logo" style="width:90px;" class="rounded-pill ms-4">
                 </span>
@@ -25,34 +34,33 @@
                     <span class="text-white">PERSONEL YÖNETİM SİSTEMİ</span>
                 </div>
 
-            </d>
+            </div>
         </div>
 
     </nav>
 
-</head>
 
-<body > <!--Sayfanin gövde kismidir, gösterilecek tüm bilgileri icerir-->
 
-   
-    <div class="container mt-3" >
-        <h3>Personel Kayıt <i class="bi bi-person-fill-add"></i> </h3> 
+    <div class="container mt-3">
+        <h3>Personel Kayıt <i class="bi bi-person-fill-add"></i> </h3>
         <div class="row">
-            <div class="col-4" >
+            <div class="col-4">
 
-                <form action="#" id="persoregister"> <!--Bu form içerisinde bootstrap in classlarından sadece yüksekliklerini özel olarak ezdim-->
-                    
+                <form action="#" id="persoregister">
+                    <!--Bu form içerisinde bootstrap in classlarından sadece yüksekliklerini özel olarak ezdim-->
+
+
                     <div class="form-group">
                         <label for="isim" class="col-form-label" style="height: 30px; padding-top: 0; padding-bottom: 0;">İsim</label>
                         <input class="form-control" id="isim" type="text" name="isim" value="" style="height: 30px; padding-top: 0; padding-bottom: 0;" />
 
                         <label for="departman" class="col-form-label mt-1" style="height: 30px; padding-top: 0; padding-bottom: 0;">Departman</label>
                         <select id="departman" name="departman" class="form-select" style="height: 30px; padding-top: 0; padding-bottom: 0;">
-                            <option selected value="0">Departman Seçiniz</option>
-                            <option value="1">IT</option>
-                            <option value="2">Yazılım</option>
-                            <option value="3">İnsan Kaynakları</option>
-                            <option value="4">Satış</option>
+                            <option selected value=0>Departman Seçiniz</option>
+                            <option value="IT">IT</option>
+                            <option value="Yazılım">Yazılım</option>
+                            <option value="İnsan Kaynakları">İnsan Kaynakları</option>
+                            <option value="Satış">Satış</option>
                         </select>
 
                         <label for="yas" class="col-form-label mt-1" style="height: 30px; padding-top: 0; padding-bottom: 0;">Yaş</label>
@@ -60,30 +68,35 @@
 
 
                     </div>
-                    <div class="row"  >
-                        <div class="col-2" >
-                            <button type="submit"  class=" btn btn-success mt-2 " style="height: 30px; padding-top: 0; padding-bottom: 0;" >Kayıt</button>
+                    <div class="row">
+                        <div class="col-1 me-4">
+                            <button type="submit" class=" btn btn-success mt-2 " style="height: 30px; padding-top: 0; padding-bottom: 0;">Kayıt</button>
                         </div>
-                        <div class="col">
-                            <button type="reset"  class="btn btn-primary mt-2 " style="height: 30px; padding-top: 0; padding-bottom: 0;" onclick="clearText()" > Reset </button>
+                        <div class="col-2 ms-3">
+                            <button type="reset" class="btn btn-primary mt-2 " style="height: 30px; padding-top: 0; padding-bottom: 0;" onclick="clearText()"> Reset </button>
                         </div>
                     </div>
-                    
+
                 </form>
 
-                
-
             </div>
+
             <div id="virtualtable" class="col-5 ms-5">
-                
+
             </div>
-            
-        <div>
 
-   </div>
+        </div>
+
+    </div>
 
 
-        <script src="../javascript/javaScript.js"></script>
+    <script src="../javascript/javaScript.js"></script> <!--Beni olusturdugum js kodlarımın baglanti linki-->
+
+    <script src="../bootstrap/js/bootstrap.min.js"></script>
+    <!--Bootstrap in sagladigi localde ki js baglanti linki
+       bunun web baglanti linkini de ekleyebilirdik
+       (Bootstarp kendi sagladigi bazı csslerin ihtiyac duydugu
+       js kodlarınıda saglayabilmek adına js linkinide sunuyor.)-->
 
 </body>
 </html>
