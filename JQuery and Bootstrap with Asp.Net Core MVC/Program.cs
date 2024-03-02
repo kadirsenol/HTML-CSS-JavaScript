@@ -1,4 +1,4 @@
-namespace JQuery_and_Bootstrap_in_Asp.Net_Core_Web_App_MVC
+namespace JQuery_and_Bootstrap_with_Asp.Net_Core_MVC
 {
     public class Program
     {

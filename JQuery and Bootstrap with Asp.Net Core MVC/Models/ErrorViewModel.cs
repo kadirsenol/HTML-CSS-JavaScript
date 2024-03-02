@@ -1,4 +1,4 @@
-namespace JQuery_and_Bootstrap_in_Asp.Net_Core_Web_App_MVC.Models
+namespace JQuery_and_Bootstrap_with_Asp.Net_Core_MVC.Models
 {
     public class ErrorViewModel
     {

@@ -1,8 +1,8 @@
-using JQuery_and_Bootstrap_in_Asp.Net_Core_Web_App_MVC.Models;
+using JQuery_and_Bootstrap_with_Asp.Net_Core_MVC.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
-namespace JQuery_and_Bootstrap_in_Asp.Net_Core_Web_App_MVC.Controllers
+namespace JQuery_and_Bootstrap_with_Asp.Net_Core_MVC.Controllers
 {
     public class HomeController : Controller
     {
