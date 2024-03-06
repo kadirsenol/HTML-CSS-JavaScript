@@ -6,12 +6,15 @@ namespace JQuery_and_Bootstrap_with_Asp.Net_Core_MVC.Controllers
 {
     public class HomeController : Controller
     {
+
         private readonly ILogger<HomeController> _logger;
 
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
         }
+
+
 
         public IActionResult Index()
         {
@@ -22,6 +25,7 @@ namespace JQuery_and_Bootstrap_with_Asp.Net_Core_MVC.Controllers
         {
             return View();
         }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

@@ -1,13 +1,19 @@
+using JQuery_and_Bootstrap_with_Asp.Net_Core_MVC.Layers.Bussines.Abstract;
+using JQuery_and_Bootstrap_with_Asp.Net_Core_MVC.Layers.Bussines.Concrete;
+
 namespace JQuery_and_Bootstrap_with_Asp.Net_Core_MVC
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public async static Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddScoped<IKullaniciManager, KullaniciManager>();
+
 
             var app = builder.Build();
 
