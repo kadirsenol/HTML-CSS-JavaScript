@@ -39,6 +39,7 @@ namespace JQuery_and_Bootstrap_with_Asp.Net_Core_MVC
             });
             #endregion
 
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
