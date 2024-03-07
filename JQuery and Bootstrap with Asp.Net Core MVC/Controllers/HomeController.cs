@@ -2,6 +2,7 @@ using JQuery_and_Bootstrap_with_Asp.Net_Core_MVC.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
+
 namespace JQuery_and_Bootstrap_with_Asp.Net_Core_MVC.Controllers
 {
     public class HomeController : Controller

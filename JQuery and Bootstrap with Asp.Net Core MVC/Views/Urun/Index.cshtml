@@ -1,0 +1,26 @@
+﻿@model IEnumerable<Urun>
+
+<table class="table" > 
+
+    <thead>
+        <tr>
+            <th> Urun Adi </th>
+            <th> Stok Adet </th>
+            <th> Kategori Adi </th>
+            <th> Urun Fiyati </th>
+        </tr>
+
+    </thead>
+    <tbody>
+        @foreach(var item in Model)
+        {
+            <tr>
+                <td>@item.UrunAdi</td>
+                <td>@item.StokAdet</td>
+                <td>@item.KategoriAdi</td>
+                <td>@item.UrunFiyati</td>
+            </tr>
+        }
+    </tbody>
+    
+</table>

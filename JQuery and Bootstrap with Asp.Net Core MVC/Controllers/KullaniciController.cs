@@ -1,6 +1,8 @@
-﻿using JQuery_and_Bootstrap_with_Asp.Net_Core_MVC.Layers.Bussines.Abstract;
+﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using AutoMapper;
+using JQuery_and_Bootstrap_with_Asp.Net_Core_MVC.Layers.Bussines.Abstract;
 using JQuery_and_Bootstrap_with_Asp.Net_Core_MVC.Layers.Entities.Concrete;
-using JQuery_and_Bootstrap_with_Asp.Net_Core_MVC.Models;
+using JQuery_and_Bootstrap_with_Asp.Net_Core_MVC.Models.KullaniciVM;
 using Microsoft.AspNetCore.Mvc;
 
 namespace JQuery_and_Bootstrap_with_Asp.Net_Core_MVC.Controllers
@@ -8,15 +10,15 @@ namespace JQuery_and_Bootstrap_with_Asp.Net_Core_MVC.Controllers
     public class KullaniciController : Controller
     {
         private readonly IKullaniciManager _kullanicimanager;
-        public KullaniciController(IKullaniciManager kullaniciManager)
+        private readonly INotyfService _notyf;
+        private readonly IMapper _mapper;
+
+        public KullaniciController(IKullaniciManager kullaniciManager, INotyfService notyf, IMapper mapper)
         {
             _kullanicimanager = kullaniciManager;
+            _notyf = notyf;
+            _mapper = mapper;
         }
-        public IActionResult Index()
-        {
-            return View();
-        }
-
 
         public async Task<IActionResult> UserCreate()
         {
@@ -54,6 +56,7 @@ namespace JQuery_and_Bootstrap_with_Asp.Net_Core_MVC.Controllers
                 catch (Exception ex)
                 {
                     ModelState.AddModelError("", ex.Message);
+                    _notyf.Error("Hata ! = " + ex.Message);
                     return View(kullaniciVm);
                 }
             }
@@ -94,7 +97,11 @@ namespace JQuery_and_Bootstrap_with_Asp.Net_Core_MVC.Controllers
                 }
                 catch (Exception ex)
                 {
+
                     ModelState.AddModelError("", ex.Message);
+                    #region Notyf
+                    _notyf.Error("Hata! = " + ex.Message);
+                    #endregion
                     return View(kullaniciLoginVm);
                 }
             }
@@ -104,9 +111,10 @@ namespace JQuery_and_Bootstrap_with_Asp.Net_Core_MVC.Controllers
             }
         }
 
+        //UPDATE DELETE METOTLARINIDA EKLE
+
         public async Task<IActionResult> Profil()
         {
-
             return View();
         }
 

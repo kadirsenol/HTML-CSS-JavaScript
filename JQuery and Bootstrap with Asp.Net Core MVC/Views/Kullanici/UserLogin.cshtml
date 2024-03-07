@@ -18,13 +18,12 @@
                 </div>
                 <div class="row" >
                     <div class="form-group mt-2 col-2">
-                        <button type="submit" class="btn btn-primary">Giriş</button>
+                        <button type="submit" class="btn btn-success">Giriş</button>
                     </div>
                     <div class="form-group mt-2 col-4">
                         <a class="btn btn-primary" asp-action="UserCreate">Üye Ol</a>
                     </div>
                 </div>
-
 
                 <div class="form-group">
 
@@ -44,8 +43,12 @@
 
 </div>
 
+
 @section Scripts {
     @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial"); //Validationun localde ki lokasyonu
+        await Html.RenderPartialAsync("_ValidationScriptsPartial"); //Validationun localde jquery linklerinin render edilmesi
     }
-}
+    @await Component.InvokeAsync("Notyf") @*Notyf icin js eklentisi*@
+                 }
+
+
