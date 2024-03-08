@@ -111,7 +111,7 @@ namespace JQuery_and_Bootstrap_with_Asp.Net_Core_MVC.Controllers
             }
         }
 
-        //UPDATE DELETE METOTLARINIDA EKLE
+
 
         public async Task<IActionResult> Profil()
         {

@@ -35,5 +35,18 @@ namespace JQuery_and_Bootstrap_with_Asp.Net_Core_MVC.Layers.DataAccess.Concrete
         {
             return await SqlDbContext.Set<T>().Where(expression).AnyAsync();
         }
+
+        public virtual async Task<int> DeleteById(TId id)
+        {
+            T result = await SqlDbContext.Set<T>().FindAsync(id);
+            SqlDbContext.Set<T>().Remove(result);
+            return await SqlDbContext.SaveChangesAsync();
+        }
+
+        public virtual async Task<T> GetById(TId id)
+        {
+            return await SqlDbContext.Set<T>().FindAsync(id);
+        }
+
     }
 }

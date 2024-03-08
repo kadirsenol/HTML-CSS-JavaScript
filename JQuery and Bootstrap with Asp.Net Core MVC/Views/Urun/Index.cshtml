@@ -19,6 +19,23 @@
                 <td>@item.StokAdet</td>
                 <td>@item.KategoriAdi</td>
                 <td>@item.UrunFiyati</td>
+                <td>
+                    <div class="row">
+                        <div class="col-2" >
+                            <form asp-action="Update">
+                                <input type="hidden" name="Id" id="Id" value="@item.Id" /> 
+                                <input type="submit" class="btn btn-secondary" value="Edit" />
+                            </form>
+                        </div>
+                        <div class="col-4">
+                            <form asp-action="Delete" method="post" >
+                                <input type="hidden" name="Id" id="Id" value="@item.Id" /> @*asp-for modele esitleyip model turunden gonderiyor fakat burada asp-foru IEnumdan dolayi kullanamadigimiz icin taghalperlersiz input tanimladik. Ve gonderecegimiz postu inputun valuesini manuel yazdik ve bu sekilde veri tipinde gidiyor model tipinde degil cunku taghalper kullanmadik, zaten dolu geliyor. Asp for valueye degeri otomatik yaziyor(Eger inputtan kullanici dolduruyorsa veya model zaten dolu geliyorsa iki turden de otomatik dolduruyor).*@
+                                <input type="submit" class="btn btn-danger" value="Delete" />          
+                            </form>
+                        </div>
+                    </div>
+                    
+                </td>
             </tr>
         }
     </tbody>
