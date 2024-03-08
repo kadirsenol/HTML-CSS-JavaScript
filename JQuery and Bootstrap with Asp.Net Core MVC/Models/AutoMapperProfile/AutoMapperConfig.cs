@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using JQuery_and_Bootstrap_with_Asp.Net_Core_MVC.Layers.Entities.Concrete;
 using JQuery_and_Bootstrap_with_Asp.Net_Core_MVC.Models.KullaniciVM;
+using JQuery_and_Bootstrap_with_Asp.Net_Core_MVC.Models.UrunVM;
 
 namespace JQuery_and_Bootstrap_with_Asp.Net_Core_MVC.Models.AutoMapperProfile
 {
@@ -10,6 +11,7 @@ namespace JQuery_and_Bootstrap_with_Asp.Net_Core_MVC.Models.AutoMapperProfile
         {
             CreateMap<KullaniciCreateVM, Kullanici>().ReverseMap(); // KullaniciVM i Kullaniciya cevir, gerekirse tam tersinide yapabil.
             CreateMap<KullaniciLoginVM, Kullanici>().ReverseMap();
+            CreateMap<UrunInsertVM, Urun>().ReverseMap();
         }
     }
 }

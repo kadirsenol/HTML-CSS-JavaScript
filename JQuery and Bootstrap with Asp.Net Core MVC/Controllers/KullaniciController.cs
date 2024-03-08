@@ -48,6 +48,7 @@ namespace JQuery_and_Bootstrap_with_Asp.Net_Core_MVC.Controllers
                         Password = kullaniciVm.Password,
                         TcNo = kullaniciVm.TcNo
                     };
+                    //_mapper.Map<Kullanici>(kullaniciVm); // Mapper kullanimi
 
                     await _kullanicimanager.Insert(kullanici);
                     TempData["Basarili Kayit"] = "Kullanıcı Başarıyla Oluşturuldu.";

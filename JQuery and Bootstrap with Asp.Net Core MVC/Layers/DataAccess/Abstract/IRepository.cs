@@ -11,7 +11,7 @@ namespace JQuery_and_Bootstrap_with_Asp.Net_Core_MVC.Layers.DataAccess.Abstract
         public Task<int> DeleteById(TId id);
         public Task<T> GetById(TId id);
 
-
+        public Task<int> Update(T entity);
 
     }
 }

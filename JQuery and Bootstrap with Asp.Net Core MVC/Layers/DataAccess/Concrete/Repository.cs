@@ -48,5 +48,11 @@ namespace JQuery_and_Bootstrap_with_Asp.Net_Core_MVC.Layers.DataAccess.Concrete
             return await SqlDbContext.Set<T>().FindAsync(id);
         }
 
+        public virtual async Task<int> Update(T entity)
+        {
+            SqlDbContext.Set<T>().Update(entity);
+            return await SqlDbContext.SaveChangesAsync();
+        }
+
     }
 }
