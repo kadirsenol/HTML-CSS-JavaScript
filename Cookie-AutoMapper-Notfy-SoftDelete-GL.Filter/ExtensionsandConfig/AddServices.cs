@@ -13,7 +13,7 @@ namespace Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter.ExtensionsandConfig
             {
                 options.Cookie.Name = "CookieDeneme";
                 options.LoginPath = "/Account/Index";//Eger bir controlle erisim sirasinda autontacion gerekli ise otomatik yonlendirilecek path.
-                options.LogoutPath = "/Account/Logaut";
+                options.LogoutPath = "/Account/Logout"; // Eger cikis islemi gerekli ise yonlendirilecek path, bu path su anda guncel degil!
                 options.AccessDeniedPath = "/Account/Stop";
                 options.Cookie.HttpOnly = true;//Yalnizca http istekleri sonucunda cookie ulasilir. Script isteklerinde ulasim engellenir.
                 options.Cookie.SameSite = SameSiteMode.Strict;//Bizim tarayıcımız dışında kullanılmasi engellenir. Sahte sitelere karsi alinmis onlem
@@ -38,6 +38,12 @@ namespace Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter.ExtensionsandConfig
         public static IServiceCollection AddScopedAll(this IServiceCollection services)
         {
             services.AddScoped<IUserManager, UserManager>();
+            return services;
+        }
+
+        public static IServiceCollection AddSpecialPolicy(this IServiceCollection services) // Bu yontem sadece verilen degeri karsilamasi sartini ele alir. Eger istenmeyen durum varsa farkli yontem uygulaniyor.
+        {
+            services.AddAuthorization(options => options.AddPolicy("TCNO", policy => policy.RequireClaim("TcNo", "123")));
             return services;
         }
 

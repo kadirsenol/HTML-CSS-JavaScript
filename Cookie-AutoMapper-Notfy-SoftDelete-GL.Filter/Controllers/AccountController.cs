@@ -64,9 +64,9 @@ namespace Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter.Controllers
                         //return RedirectToRoute(new { area = "Admin", controller = "Home", action = "Index" });
                         return RedirectToAction("Index", "Home", new { area = "Admin" });
                     }
-                    else
+                    else if (user1.Rol == "Üye")
                     {
-                        return RedirectToAction("Privacy", "Home");
+                        return RedirectToAction("Index", "Shopping");
                     }
 
                 }
@@ -74,28 +74,23 @@ namespace Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter.Controllers
                 {
                     ModelState.AddModelError("", ex.Message);
                     notyf.Error("Hata:" + ex.Message);
-                    return RedirectToAction("Index", "Account");
                 }
             }
             else
             {
                 notyf.Error("Hata: Tarayıcınızın JavaScript kullanım iznini kontrol edin, kapalı ise izin verin");
                 ModelState.AddModelError("", "Hata: Tarayıcınızın JavaScript kullanım iznini kontrol edin, kapalı ise izin verin");
-                return RedirectToAction("Index", "Account");
+
             }
+
+            return RedirectToAction("Index", "Account");
         }
 
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            if (User.IsInRole("Admin"))
-            {
-                return RedirectToAction("Index", "Home", new { area = "" });
-            }
-            else
-            {
-                return RedirectToAction("Index", "Home");
-            }
+
+            return RedirectToAction("Index", "Home");
 
         }
     }

@@ -9,7 +9,8 @@ namespace Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            builder.Services.AddControllersWithViews();
+            builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();//AddRazor extension metodu; anlik degisimleri
+                                                                                    //refresh esnasinda hemen yansitiyor.
 
 
 
@@ -29,6 +30,7 @@ namespace Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter
             builder.Services.AddNotyfSetting();
             builder.Services.AddCookieSetting();
             builder.Services.AddScopedAll();
+            builder.Services.AddSpecialPolicy(); // TCNO adinda bir policy olusturdum ve bunu TcNo adinda ki claim im ile birlestirdim. Ve policy olustururken iceriginin 123 olmasini istedim. Bunu [Authorize(Policy ="TCNO")] ile dene.
             #endregion
 
             var app = builder.Build();
