@@ -1,0 +1,48 @@
+﻿@model UserLoginVM
+
+<div class="container">
+
+    <div class="row">
+
+        <form asp-action="Login" method="post">
+
+            <div class="col-4">
+
+                <div class="form-group">
+                    <label asp-for="Email" class="form-label">Email</label>
+                    <input asp-for="Email" value="" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Password" class="form-label">Password</label>
+                    <input asp-for="Password" type="password" class="form-control" />
+                </div>
+                <div class="row">
+                    <div class="form-group mt-2 col-2">
+                        <button type="submit" class="btn btn-success">Giriş</button>
+                    </div>
+                    <div class="form-group mt-2 col-4">
+                        <a class="btn btn-primary" asp-action="UserCreate">Üye Ol</a>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="text-success">
+                        <div asp-validation-summary="All" class="text-danger"> </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    @await Component.InvokeAsync("Notyf")
+
+                 }
+

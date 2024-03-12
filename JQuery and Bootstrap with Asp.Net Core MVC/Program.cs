@@ -17,7 +17,7 @@ namespace JQuery_and_Bootstrap_with_Asp.Net_Core_MVC
 
 
             #region ConStr
-            //Ben constr yi repository ile cekiyorum fakat burada servislere de eklenbiliyor.
+            //Ben constr yi repository ile cekiyorum fakat burada servislere de eklenbiliyor. Bunu manage user secrets için ekle
             #endregion
 
             #region Menagers
