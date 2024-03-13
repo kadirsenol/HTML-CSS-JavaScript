@@ -28,11 +28,11 @@ namespace Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter.Controllers
             return View(loginvm);
         }
 
-        [ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken] // asp-action tag helperi ve metodu post olan form tarafindan olusturulmus bir asptokeni cookie ile karsilastiriyor eger. Eger kendi urettigi token ile esit ise erisime izin veriyor.
         [HttpPost]
         public async Task<IActionResult> Login(UserLoginVM loginVM)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid) // Tarayicinin JS kullanimi kapatilma ihtimaline karsin koruma. Kapatilirsa validjquery kodlari calismayacagindan oturu.
             {
                 try
                 {
@@ -51,20 +51,18 @@ namespace Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter.Controllers
 
                     var authenticationProperty = new AuthenticationProperties()
                     {
-                        IsPersistent = true // Buraya modelden bir user1.rememberme fielde ekleyebilirsin.
+                        IsPersistent = loginVM.Rememberme
                     };
 
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
                         new ClaimsPrincipal(claimIdentity),
                         authenticationProperty);
 
-                    if (user1.Rol == "Admin")
+                    if ((User.IsInRole("Admin")) && (User.Identity.IsAuthenticated))
                     {
-
-                        //return RedirectToRoute(new { area = "Admin", controller = "Home", action = "Index" });
                         return RedirectToAction("Index", "Home", new { area = "Admin" });
                     }
-                    else if (user1.Rol == "Üye")
+                    else if ((User.IsInRole("Üye")) && (User.Identity.IsAuthenticated))
                     {
                         return RedirectToAction("Index", "Shopping");
                     }
@@ -72,15 +70,12 @@ namespace Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter.Controllers
                 }
                 catch (Exception ex)
                 {
-                    ModelState.AddModelError("", ex.Message);
                     notyf.Error("Hata:" + ex.Message);
                 }
             }
             else
             {
                 notyf.Error("Hata: Tarayıcınızın JavaScript kullanım iznini kontrol edin, kapalı ise izin verin");
-                ModelState.AddModelError("", "Hata: Tarayıcınızın JavaScript kullanım iznini kontrol edin, kapalı ise izin verin");
-
             }
 
             return RedirectToAction("Index", "Account");

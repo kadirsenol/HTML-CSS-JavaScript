@@ -12,5 +12,7 @@ namespace Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter.Models.VMs.UserVM
         [MaxLength(50, ErrorMessage = "50 karakterden fazla parola girilemez")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "Password alanı boş bırakılamaz")]
         public string Password { get; set; }
+
+        public bool Rememberme { get; set; }
     }
 }

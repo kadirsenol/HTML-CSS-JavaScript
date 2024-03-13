@@ -15,7 +15,6 @@ namespace Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter.Layers.Entities.EntityCon
             builder.Property(p => p.TcNo).HasMaxLength(11);
             builder.Property(p => p.Rol).HasMaxLength(15);
             builder.HasIndex(p => p.Email).IsUnique();
-
         }
     }
 }

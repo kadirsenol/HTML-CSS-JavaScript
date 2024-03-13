@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter.Migrations
 {
     [DbContext(typeof(SqlDbContext))]
-    [Migration("20240311220327_dbcreating")]
-    partial class dbcreating
+    [Migration("20240313105415_createdb")]
+    partial class createdb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -38,6 +38,11 @@ namespace Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GetDate()");
 
+                    b.Property<bool>("IsDelete")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
                     b.Property<string>("KategoriAdi")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -46,6 +51,11 @@ namespace Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter.Migrations
                     b.Property<int>("StokAdet")
                         .HasMaxLength(7)
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdateDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GetDate()");
 
                     b.Property<string>("UrunAdi")
                         .IsRequired()
@@ -84,6 +94,11 @@ namespace Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<bool>("IsDelete")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -97,6 +112,11 @@ namespace Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter.Migrations
                     b.Property<int>("TcNo")
                         .HasMaxLength(11)
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdateDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GetDate()");
 
                     b.HasKey("Id");
 

@@ -12,25 +12,25 @@ namespace Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter
             builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();//AddRazor extension metodu; anlik degisimleri
                                                                                     //refresh esnasinda hemen yansitiyor.
 
-
-
+            #region Tek Satirlik Servis Eklentileri
             #region DbContext
             /*builder.Services.AddDbContext<SqlDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("MyConstr")));*/ // Normalde dbcontext icerisinde ki constr efnin cli kullanimi icindir. bu nedenle constr yi servis icin ayrý belirtmek durumundayiz.
-                                                                                                                                                     // Guvenlik acisindan(Db ve server ismi) constr yi secrets dosyamýza gomduk ve "MyConstr" ile orayý refere ediyoruz.
-                                                                                                                                                     // Bu kod tek satir olmasý acisindan extesions classýna eklenmesine gerek yoktur.
+                                                                                                                                                     // Guvenlik acisindan(Db ve server ismi) constr yi secrets dosyamýza gomduk ve "MyConstr" ile orayý refere ediyoruz.                                                                                                                                                    
                                                                                                                                                      // Ama bu projede herhangi bir ctora bagimli olarak dbcontext vermedigim icin bunu comment isaretliyorum. 
                                                                                                                                                      // Servislere ilk bagýmlý nesneyi verdikten sonra ilgili nesnenin bagýmlýlýklarýný kendimiz newletebiliriz cunku bi kere ilk basta servis newleme islemini baslatti.
             #endregion
             #region AutoMapper
             builder.Services.AddAutoMapper(typeof(AutoMapperConfig));
             #endregion
+            #endregion
 
-
+            #region Cok Satirlik Servis Eklentileri
             #region ExtensionsandConfig
             builder.Services.AddNotyfSetting();
             builder.Services.AddCookieSetting();
             builder.Services.AddScopedAll();
             builder.Services.AddSpecialPolicy(); // TCNO adinda bir policy olusturdum ve bunu TcNo adinda ki claim im ile birlestirdim. Ve policy olustururken iceriginin 123 olmasini istedim. Bunu [Authorize(Policy ="TCNO")] ile dene.
+            #endregion 
             #endregion
 
             var app = builder.Build();
@@ -48,7 +48,7 @@ namespace Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter
 
             app.UseRouting();
 
-            app.UseAuthentication(); //Authentication ozelligini kullanmasi icin ekliyoruz
+            app.UseAuthentication(); //Authentication ozelligini kullanmasi icin ekliyoruz. Ve UseAuthorization metodundan once olmasý gerek.
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => //Admin alani icin, varsa router i ekliyoruz.

@@ -11,23 +11,23 @@
                 <div class="form-group">
                     <label asp-for="Email" class="form-label">Email</label>
                     <input asp-for="Email" value="" class="form-control" />
+                    <div> <span asp-validation-for="Email" class="text-danger"></span> </div>
                 </div>
                 <div class="form-group">
                     <label asp-for="Password" class="form-label">Password</label>
-                    <input asp-for="Password" type="password" class="form-control" />
+                    <input asp-for="Password" value="" type="password" class="form-control" />
+                    <div> <span asp-validation-for="Password" class="text-danger"></span> </div>
+                </div>
+                <div class="form-group form-check mt-2">
+                    <label asp-for="Rememberme" class="form-check-label">Beni hatırla</label>
+                    <input asp-for="Rememberme" class="form-check-input" />               
                 </div>
                 <div class="row">
-                    <div class="form-group mt-2 col-2">
+                    <div class="form-group mt-2 me-4 col-1">
                         <button type="submit" class="btn btn-success">Giriş</button>
                     </div>
-                    <div class="form-group mt-2 col-4">
+                    <div class="form-group mt-2 ms-3 col-4">
                         <a class="btn btn-primary" asp-action="UserCreate">Üye Ol</a>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="text-success">
-                        <div asp-validation-summary="All" class="text-danger"> </div>
                     </div>
                 </div>
             </div>
@@ -40,9 +40,8 @@
 
 @section Scripts {
     @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        await Html.RenderPartialAsync("_ValidationScriptsPartial"); //Validationun localde jquery linklerinin render edilmesi
     }
-    @await Component.InvokeAsync("Notyf")
-
-                 }
+    @await Component.InvokeAsync("Notyf") @*Notyf icin js eklentisi*@
+}
 
