@@ -1,10 +1,10 @@
 ﻿using Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter.Layers.Bussines.Abstract;
-using Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter.Layers.DataAccess.DBContexts;
 using Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter.Layers.Entities.Concrete;
 
 namespace Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter.Layers.Bussines.Concrete
 {
-    public class UserManager : Manager<User, int, SqlDbContext>, IUserManager
+    public class UserManager : Manager<User, int>, IUserManager
+
     {
         //IUserManagerde is kurallari olusturursan ilgili manager metodunu override edip configure edebilirsin.
         public async Task<User> ChackUser(User entity)

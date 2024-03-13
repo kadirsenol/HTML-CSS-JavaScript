@@ -1,18 +1,18 @@
 ﻿using Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter.Layers.Bussines.Abstract;
 using Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter.Layers.DataAccess.Abstract;
 using Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter.Layers.DataAccess.Concrete;
+using Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter.Layers.DataAccess.DBContexts;
 using Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter.Layers.Entities.Abstract;
-using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
 namespace Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter.Layers.Bussines.Concrete
 {
-    public class Manager<T, TId, TDbContext> : IManager<T, TId> where T : BaseEntity<TId> where TDbContext : DbContext, new()
+    public class Manager<T, TId> : IManager<T, TId> where T : BaseEntity<TId>
     {
         IRepository<T, TId> _repo;
         public Manager()
         {
-            _repo = new Repository<T, TId, TDbContext>();
+            _repo = new Repository<T, TId, SqlDbContext>(); // DBContext degismesi durumunda sadece burasi degistirilmesi yetecektir.
         }
 
         public virtual async Task<int> Delete(T entity)

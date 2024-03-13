@@ -20,6 +20,9 @@ namespace Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter.Layers.DataAccess.DBConte
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
 
+        // Bu constucter'i Mvc Projesinde Servis'e register ederken kullanacagiz
+        //public SqlDbContext(DbContextOptions<SqlDbContext> options) : base(options) { }
+
 
         // Soft delete olarak calistigimiz veritabanimizda delete islemi gerceklestiginde changetracker kayıt olan deleted islemlerini
         // savechange metodunu ezerek durumun bir delete degil update oldugunu belirtip update olacak propları tanimliyoruz.
