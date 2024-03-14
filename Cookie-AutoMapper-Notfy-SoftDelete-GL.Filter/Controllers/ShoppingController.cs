@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter.Layers.Bussines.Abstract;
+using Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter.Layers.Entities.Concrete;
+using Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter.Models.VMs.MessageVM;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter.Controllers
@@ -7,9 +10,26 @@ namespace Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter.Controllers
     [Authorize(Roles = "Üye")] //Bu kontrolöre sadece rolü üye olanlar erişebilir.
     public class ShoppingController : Controller
     {
-        public IActionResult Index()
+        private readonly IMessageManager messageManager;
+        private readonly IKonuManager konuManager;
+
+        public ShoppingController(IMessageManager messageManager, IKonuManager konuManager)
+        {
+            this.messageManager = messageManager;
+            this.konuManager = konuManager;
+        }
+        public async Task<IActionResult> Index()
         {
             return View();
+        }
+
+        public async Task<IActionResult> Message()
+        {
+            ICollection<Konu> Konular = await konuManager.GetAll();
+            MessageInsertVm vm = new MessageInsertVm();
+            vm.Konular = Konular;
+            return View(vm);
+
         }
     }
 }

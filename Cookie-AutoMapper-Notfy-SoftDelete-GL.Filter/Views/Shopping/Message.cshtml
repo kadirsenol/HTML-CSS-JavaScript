@@ -1,0 +1,66 @@
+﻿@model MessageInsertVm
+
+<div class="container">
+
+    <div class="row">
+
+        <form asp-action="Login" method="post">
+
+            <div class="col-4">
+
+                <div class="form-group">
+                    <label asp-for="Ad" class="form-label">Ad</label>
+                    <input asp-for="Ad" value="" class="form-control" />
+                    <div> <span asp-validation-for="Ad" class="text-danger"></span> </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Email" class="form-label">Email</label>
+                    <input asp-for="Email" value="" class="form-control" />
+                    <div> <span asp-validation-for="Email" class="text-danger"></span> </div>
+                </div>
+                <div class="form-group mt-2">
+                    <label asp-for="KonuId" class="form-label">Konu</label>
+                    <select asp-for="KonuId" class="form-select-control" > @* Bana optionumun valuesinden gelecek degeri KonuId ye at. *@
+                        <option value="0" > Mesaj Konusu Seçiniz </option>
+                        @{foreach (var item in Model.Konular)
+                            {
+                                <option value="@item.Id" >@item.KonuAdi</option> // item.id ile gelen deger KonuId degerine atanacak
+                            }
+                            
+                        }              
+                    </select>
+                    <div> <span asp-validation-for="KonuId" class="text-danger"></span> </div>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Mesaj" class="form-label">Mesaj</label>
+                    <textarea asp-for="Mesaj" class="form-control" ></textarea>
+                    <div> <span asp-validation-for="Mesaj" class="text-danger"></span> </div>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Dosya" class="form-label">Dosya</label>
+                    <input asp-for="Dosya" type="file" class="form-control" />
+                    <div> <span asp-validation-for="Dosya" class="text-danger"></span> </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group mt-2 col-1">
+                        <button type="submit" class="btn btn-success">Gönder</button>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial"); //Validationun localde jquery linklerinin render edilmesi
+    }
+    @await Component.InvokeAsync("Notyf") @*Notyf icin js eklentisi*@
+}
+

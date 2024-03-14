@@ -13,6 +13,8 @@ namespace Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter.Layers.DataAccess.DBConte
 
         public DbSet<Urun> Urunler { get; set; }
         public DbSet<User> Kullanıcılar { get; set; }
+        public DbSet<Konu> Konular { get; set; }
+        public DbSet<Message> Mesajlar { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

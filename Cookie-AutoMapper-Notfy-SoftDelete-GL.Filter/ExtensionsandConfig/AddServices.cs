@@ -38,6 +38,8 @@ namespace Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter.ExtensionsandConfig
         public static IServiceCollection AddScopedAll(this IServiceCollection services)
         {
             services.AddScoped<IUserManager, UserManager>();
+            services.AddScoped<IMessageManager, MessageManager>();
+            services.AddScoped<IKonuManager, KonuManager>();
             return services;
         }
 

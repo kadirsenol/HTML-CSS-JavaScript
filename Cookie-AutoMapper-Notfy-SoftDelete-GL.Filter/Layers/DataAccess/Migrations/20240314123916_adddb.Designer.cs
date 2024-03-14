@@ -4,6 +4,7 @@ using Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter.Layers.DataAccess.DBContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter.Migrations
 {
     [DbContext(typeof(SqlDbContext))]
-    partial class SqlDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240314123916_adddb")]
+    partial class adddb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,6 +24,90 @@ namespace Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter.Layers.Entities.Concrete.Konu", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreateDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GetDate()");
+
+                    b.Property<bool>("IsDelete")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<string>("KonuAdi")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<DateTime>("UpdateDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GetDate()");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Konular");
+                });
+
+            modelBuilder.Entity("Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter.Layers.Entities.Concrete.Message", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Ad")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateTime>("CreateDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GetDate()");
+
+                    b.Property<byte[]>("Dosya")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<bool>("IsDelete")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<int>("KonuId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Mesaj")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<DateTime>("UpdateDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GetDate()");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("KonuId");
+
+                    b.ToTable("Mesajlar");
+                });
 
             modelBuilder.Entity("Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter.Layers.Entities.Concrete.Urun", b =>
                 {
@@ -121,6 +208,22 @@ namespace Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter.Migrations
                         .IsUnique();
 
                     b.ToTable("Kullanıcılar");
+                });
+
+            modelBuilder.Entity("Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter.Layers.Entities.Concrete.Message", b =>
+                {
+                    b.HasOne("Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter.Layers.Entities.Concrete.Konu", "Konu")
+                        .WithMany("Mesajlar")
+                        .HasForeignKey("KonuId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Konu");
+                });
+
+            modelBuilder.Entity("Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter.Layers.Entities.Concrete.Konu", b =>
+                {
+                    b.Navigation("Mesajlar");
                 });
 #pragma warning restore 612, 618
         }
