@@ -4,7 +4,7 @@
 
     <div class="row">
 
-        <form asp-action="Login" method="post">
+        <form asp-action="Message" method="post" enctype="multipart/form-data"> @*Eger file post edeceksen enctype ifadesini eklemelisin.*@
 
             <div class="col-4">
 
@@ -22,12 +22,12 @@
                     <label asp-for="KonuId" class="form-label">Konu</label>
                     <select asp-for="KonuId" class="form-select-control" > @* Bana optionumun valuesinden gelecek degeri KonuId ye at. *@
                         <option value="0" > Mesaj Konusu Seçiniz </option>
-                        @{foreach (var item in Model.Konular)
-                            {
-                                <option value="@item.Id" >@item.KonuAdi</option> // item.id ile gelen deger KonuId degerine atanacak
-                            }
-                            
-                        }              
+                        
+                            @foreach (var item in Model.Konular)
+                             {
+                                <option value="@item.Id" >@item.KonuAdi</option> @*  item.id ile gelen deger KonuId degerine atanacak *@
+                             }
+                                             
                     </select>
                     <div> <span asp-validation-for="KonuId" class="text-danger"></span> </div>
                 </div>
@@ -39,9 +39,9 @@
                 </div>
 
                 <div class="form-group">
-                    <label asp-for="Dosya" class="form-label">Dosya</label>
-                    <input asp-for="Dosya" type="file" class="form-control" />
-                    <div> <span asp-validation-for="Dosya" class="text-danger"></span> </div>
+                    <label asp-for="File" class="form-label">Dosya</label>
+                    <input asp-for="File" type="file" class="form-control" multiple accept=".jpg,.png,.gif,.pdf" /> @* multiple accept => desteklenen formatları belirleme *@
+                    <div> <span asp-validation-for="File" class="text-danger"></span> </div>
                 </div>
 
                 <div class="row">

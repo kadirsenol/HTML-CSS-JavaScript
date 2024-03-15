@@ -17,8 +17,8 @@ namespace Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter.Models.VMs.MessageVM
 
         [Range(1, 5, ErrorMessage = "Lütfen Mesajınız için İlgili Konu Başlığını Seçiniz.")]
         public int KonuId { get; set; } // Burasi mapping esnasinda db modelimin KonuId propuna aktaracagım kısım için
-        public ICollection<Konu>? Konular { get; set; } // İlişkili olanları toplu olarak getirip buraya atabilmek için. Select options kısmında Bu konunun id sini kabul edilen InsertModelin KonuId sine esitleyeceğiz.
+        public ICollection<Konu>? Konular { get; set; } //= new List<Konu>(); // İlişkili olanları toplu olarak getirip buraya atabilmek için. Select options kısmında Bu konunun id sini kabul edilen InsertModelin KonuId sine esitleyeceğiz.
 
-        public IFormFile? Dosya { get; set; } // File icin sınırlamalar var mi arastir.
+        public IFormFile? File { get; set; } // File icin sınırlamalar var mi arastir.
     }
 }
