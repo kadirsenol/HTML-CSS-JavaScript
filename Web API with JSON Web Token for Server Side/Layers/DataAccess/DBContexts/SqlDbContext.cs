@@ -1,16 +1,15 @@
-﻿using Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter.Layers.Entities.Abstract;
-using Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter.Layers.Entities.Concrete;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System.Reflection;
+using Web_API_with_JSON_Web_Token_for_Server_Side.Layers.Entities.Abstract;
+using Web_API_with_JSON_Web_Token_for_Server_Side.Layers.Entities.Concrete;
 
-namespace Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter.Layers.DataAccess.DBContexts
+namespace Web_API_with_JSON_Web_Token_for_Server_Side.Layers.DataAccess.DBContexts
 {
     public class SqlDbContext : DbContext
     {
 
-        //Bu constucter MVC projesinde DbContext i servise ekleyebilmek için gerekli oluyor. Bununla birlikte birde parametresiz ctor da eklenmeli. Ama suanda servise dbcontext eklenmesine gerek yok.
-        //public SqlDbContext(DbContextOptions<SqlDbContext> options) : base(options) { }
-        //public SqlDbContext(){} 
+        // public SqlDbContext(DbContextOptions<SqlDbContext> options) : base(options) { } //Bu constucter MVC projesinde DbContext i servise ekleyebilmek için gerekli oluyor.
+        // public SqlDbContext() { }                                                       //Bununla birlikte birde parametresiz ctor da eklenmeli. Eger dbcontex e ihtiyac yok ise ctorlara gerek yok
 
 
         public DbSet<Urun> Urunler { get; set; }
@@ -20,7 +19,7 @@ namespace Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter.Layers.DataAccess.DBConte
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=.;Database=CookieExample;Trusted_Connection=True; Trust Server Certificate=true; MultipleActiveResultSets=True");
+            optionsBuilder.UseSqlServer(@"Server=.;Database=ApiExample;Trusted_Connection=True; Trust Server Certificate=true; MultipleActiveResultSets=True");
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

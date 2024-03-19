@@ -7,7 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "General Login and Registrat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JQuery and Bootstrap with Asp.Net Core MVC", "JQuery and Bootstrap with Asp.Net Core MVC\JQuery and Bootstrap with Asp.Net Core MVC.csproj", "{B0F9061F-E001-4B14-AF4E-ED2813F2EFDA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cookie-AutoMapper-Notfy-SoftDelete-GL.Filter", "Cookie-AutoMapper-Notfy-SoftDelete-GL.Filter\Cookie-AutoMapper-Notfy-SoftDelete-GL.Filter.csproj", "{112A73EC-4E5B-4295-BB38-D2F4D2D3D2B7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cookie-AutoMapper-Notfy-SoftDelete-GL.Filter", "Cookie-AutoMapper-Notfy-SoftDelete-GL.Filter\Cookie-AutoMapper-Notfy-SoftDelete-GL.Filter.csproj", "{112A73EC-4E5B-4295-BB38-D2F4D2D3D2B7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPI for Client Side", "WebAPI for Client Side\WebAPI for Client Side.csproj", "{B457A83F-679D-4A6C-B4C8-096B4573E3DF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web API with JSON Web Token for Server Side", "Web API with JSON Web Token for Server Side\Web API with JSON Web Token for Server Side.csproj", "{B1309E9E-8CCA-4848-8C7E-3421FFE69F96}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +31,14 @@ Global
 		{112A73EC-4E5B-4295-BB38-D2F4D2D3D2B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{112A73EC-4E5B-4295-BB38-D2F4D2D3D2B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{112A73EC-4E5B-4295-BB38-D2F4D2D3D2B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B457A83F-679D-4A6C-B4C8-096B4573E3DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B457A83F-679D-4A6C-B4C8-096B4573E3DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B457A83F-679D-4A6C-B4C8-096B4573E3DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B457A83F-679D-4A6C-B4C8-096B4573E3DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1309E9E-8CCA-4848-8C7E-3421FFE69F96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1309E9E-8CCA-4848-8C7E-3421FFE69F96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1309E9E-8CCA-4848-8C7E-3421FFE69F96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1309E9E-8CCA-4848-8C7E-3421FFE69F96}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

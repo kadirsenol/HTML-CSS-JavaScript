@@ -66,7 +66,7 @@ namespace Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter.Controllers
 
                     await messageManager.Insert(message);
 
-                    return RedirectToAction("Message");
+                    return RedirectToAction("Message"); // Buraya rolü üye mi ve autotatication olmus mu if kontrolünü de ekle.
                 }
                 catch (Exception ex)
                 {

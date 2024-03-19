@@ -65,6 +65,7 @@ namespace Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter.Controllers
                     else if ((User.IsInRole("Üye")) && (User.Identity.IsAuthenticated))
                     {
                         return RedirectToAction("Index", "Shopping");
+
                     }
 
                 }

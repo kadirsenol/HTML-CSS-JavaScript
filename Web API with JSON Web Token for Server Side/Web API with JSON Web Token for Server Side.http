@@ -1,0 +1,6 @@
+@Web_API_with_JSON_Web_Token_for_Server_Side_HostAddress = http://localhost:5272
+
+GET {{Web_API_with_JSON_Web_Token_for_Server_Side_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
