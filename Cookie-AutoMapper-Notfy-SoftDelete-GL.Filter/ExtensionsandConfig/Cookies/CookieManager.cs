@@ -26,10 +26,11 @@ namespace Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter.ExtensionsandConfig.Cooki
                 IsPersistent = loginVM.Rememberme
             };
 
+
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
                   new ClaimsPrincipal(claimIdentity),
                   authenticationProperty);
-            //return HttpContext;
+
         }
     }
 }

@@ -8,10 +8,12 @@ namespace Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter
     {
         public async static Task Main(string[] args)
         {
-            Log.Logger = new LoggerConfiguration()
-                             .WriteTo.Console() // Console bas
-                             .WriteTo.Seq(@"http://localhost:5201") // Nereye yazilicaksa
-                             .CreateLogger(); // Logger i olustur
+            #region Logger
+            Log.Logger = new LoggerConfiguration() // Siteyi local serverinde yayinlayacaksan burayi aktiflestirebilirsin, host satin alacaksan loggeri ve try cath finaly kýsýmlarini kaldir.
+                                 .WriteTo.Console() // Console bas
+                                 .WriteTo.Seq(@"http://localhost:5201") // Nereyi dinlicek. Seq içerisinde listenin ip ise programin kendisinin nerede calisacagini ayarliyorsun
+                                 .CreateLogger(); // Logger i olustur 
+            #endregion
             try
             {
                 Log.Information("Sistem calismaya basladi");
