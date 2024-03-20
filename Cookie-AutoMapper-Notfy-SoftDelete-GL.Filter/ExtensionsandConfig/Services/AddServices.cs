@@ -3,7 +3,7 @@ using Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter.Layers.Bussines.Abstract;
 using Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter.Layers.Bussines.Concrete;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
-namespace Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter.ExtensionsandConfig
+namespace Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter.ExtensionsandConfig.Services
 {
     public static class AddServices
     {

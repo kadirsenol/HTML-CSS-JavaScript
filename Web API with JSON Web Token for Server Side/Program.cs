@@ -1,4 +1,4 @@
-using Web_API_with_JSON_Web_Token_for_Server_Side.MyExtensions;
+using Web_API_with_JSON_Web_Token_for_Server_Side.MyExtensions.Services;
 
 namespace Web_API_with_JSON_Web_Token_for_Server_Side
 {
@@ -12,7 +12,11 @@ namespace Web_API_with_JSON_Web_Token_for_Server_Side
 
             builder.Services.AddManager(); //MyExtensions class
 
-            //builder.Services.AddDbContext<SqlDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("MyConstr"))); // DBContext i servisler vasitasi ile saglamak mantikli oldugunda burayi kullan ve constr yi guvenlik acisindan screet dosyasina ekle.
+            #region Tek Satirlik Servis Eklentileri
+            #region DbContext
+            //builder.Services.AddDbContext<SqlDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("MyConstr"))); // DBContext i servisler vasitasi ile saglamak mantikli oldugunda burayi kullan ve constr yi guvenlik acisindan screet dosyasina ekle. 
+            #endregion 
+            #endregion
 
 
             builder.Services.AddControllers(); //AddJsonOptions eklentisi ile Db den iliskili kayitlari da getirmek icin gerekli ayar. Bu eklenti ile respons, $id ve value degerleri ile geliyor.

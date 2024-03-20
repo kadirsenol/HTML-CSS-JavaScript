@@ -3,7 +3,7 @@ using Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter.Layers.Entities.Concrete;
 using Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter.Models.VMs.MessageVM;
 using Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter.Models.VMs.UserVM;
 
-namespace Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter.ExtensionsandConfig
+namespace Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter.ExtensionsandConfig.AutoMapper
 {
     public class AutoMapperConfig : Profile
     {

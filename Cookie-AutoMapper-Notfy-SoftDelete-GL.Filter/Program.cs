@@ -1,4 +1,6 @@
-using Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter.ExtensionsandConfig;
+using Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter.ExtensionsandConfig.AutoMapper;
+using Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter.ExtensionsandConfig.Services;
+using Serilog;
 
 namespace Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter
 {
@@ -6,64 +8,82 @@ namespace Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter
     {
         public async static Task Main(string[] args)
         {
-            var builder = WebApplication.CreateBuilder(args);
-
-            // Add services to the container.
-            builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();//AddRazor extension metodu; anlik degisimleri
-                                                                                    //refresh esnasinda hemen yansitiyor.
-
-            #region Tek Satirlik Servis Eklentileri
-            #region DbContext
-            /*builder.Services.AddDbContext<SqlDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("MyConstr")));*/ // Normalde dbcontext icerisinde ki constr efnin cli kullanimi icindir. bu nedenle constr yi servis icin ayrý belirtmek durumundayiz.
-                                                                                                                                                     // Guvenlik acisindan(Db ve server ismi) constr yi secrets dosyamýza gomduk ve "MyConstr" ile orayý refere ediyoruz.                                                                                                                                                    
-                                                                                                                                                     // Ama bu projede herhangi bir ctora bagimli olarak dbcontext vermedigim icin bunu comment isaretliyorum. 
-                                                                                                                                                     // Servislere ilk bagýmlý nesneyi verdikten sonra ilgili nesnenin bagýmlýlýklarýný kendimiz newletebiliriz cunku bi kere ilk basta servis newleme islemini baslatti.
-            #endregion
-            #region AutoMapper
-            builder.Services.AddAutoMapper(typeof(AutoMapperConfig));
-            #endregion
-            #endregion
-
-            #region Cok Satirlik Servis Eklentileri
-            #region ExtensionsandConfig
-            builder.Services.AddNotyfSetting();
-            builder.Services.AddCookieSetting();
-            builder.Services.AddScopedAll();
-            builder.Services.AddSpecialPolicy(); // TCNO adinda bir policy olusturdum ve bunu TcNo adinda ki claim im ile birlestirdim. Ve policy olustururken iceriginin 123 olmasini istedim. Bunu [Authorize(Policy ="TCNO")] ile dene.
-            #endregion 
-            #endregion
-
-            var app = builder.Build();
-
-            // Configure the HTTP request pipeline.
-            if (!app.Environment.IsDevelopment())
+            Log.Logger = new LoggerConfiguration()
+                             .WriteTo.Console() // Console bas
+                             .WriteTo.Seq(@"http://localhost:5201") // Nereye yazilicaksa
+                             .CreateLogger(); // Logger i olustur
+            try
             {
-                app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
+                Log.Information("Sistem calismaya basladi");
+
+                var builder = WebApplication.CreateBuilder(args);
+
+                // Add services to the container.
+                builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();//AddRazor extension metodu; anlik degisimleri
+                                                                                        //refresh esnasinda hemen yansitiyor.
+
+                #region Tek Satirlik Servis Eklentileri
+                #region DbContext
+                /*builder.Services.AddDbContext<SqlDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("MyConstr")));*/ // Normalde dbcontext icerisinde ki constr efnin cli kullanimi icindir. bu nedenle constr yi servis icin ayrý belirtmek durumundayiz.
+                                                                                                                                                         // Guvenlik acisindan(Db ve server ismi) constr yi secrets dosyamýza gomduk ve "MyConstr" ile orayý refere ediyoruz.                                                                                                                                                    
+                                                                                                                                                         // Ama bu projede herhangi bir ctora bagimli olarak dbcontext vermedigim icin bunu comment isaretliyorum. 
+                                                                                                                                                         // Servislere ilk bagýmlý nesneyi verdikten sonra ilgili nesnenin bagýmlýlýklarýný kendimiz newletebiliriz cunku bi kere ilk basta servis newleme islemini baslatti.
+                #endregion
+                #region AutoMapper
+                builder.Services.AddAutoMapper(typeof(AutoMapperConfig));
+                #endregion
+                #endregion
+
+                #region Cok Satirlik Servis Eklentileri
+                #region ExtensionsandConfig
+                builder.Services.AddNotyfSetting();
+                builder.Services.AddCookieSetting();
+                builder.Services.AddScopedAll();
+                builder.Services.AddSpecialPolicy(); // TCNO adinda bir policy olusturdum ve bunu TcNo adinda ki claim im ile birlestirdim. Ve policy olustururken iceriginin 123 olmasini istedim. Bunu [Authorize(Policy ="TCNO")] ile dene.
+                #endregion
+                #endregion
+
+                var app = builder.Build();
+
+                // Configure the HTTP request pipeline.
+                if (!app.Environment.IsDevelopment())
+                {
+                    app.UseExceptionHandler("/Home/Error");
+                    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                    app.UseHsts();
+                }
+
+                app.UseHttpsRedirection();
+                app.UseStaticFiles();
+
+                app.UseRouting();
+
+                app.UseAuthentication(); //Authentication ozelligini kullanmasi icin ekliyoruz. Ve UseAuthorization metodundan once olmasý gerek.
+                app.UseAuthorization();
+
+                app.UseEndpoints(endpoints => //Admin alani icin, varsa router i ekliyoruz.
+                {
+                    endpoints.MapControllerRoute(
+                      name: "areas",
+                      pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                    );
+                });
+
+                app.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                app.Run();
             }
-
-            app.UseHttpsRedirection();
-            app.UseStaticFiles();
-
-            app.UseRouting();
-
-            app.UseAuthentication(); //Authentication ozelligini kullanmasi icin ekliyoruz. Ve UseAuthorization metodundan once olmasý gerek.
-            app.UseAuthorization();
-
-            app.UseEndpoints(endpoints => //Admin alani icin, varsa router i ekliyoruz.
+            catch (Exception ex)
             {
-                endpoints.MapControllerRoute(
-                  name: "areas",
-                  pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
-                );
-            });
 
-            app.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
-
-            app.Run();
+                Log.Fatal(ex, "Sistem beklenmedik bir nedenden dolayý durdu."); // Alinan tum exceptionlar fatal ile seqe gonderilecek
+            }
+            finally
+            {
+                Log.CloseAndFlush(); // Hem kapatsin hemde elinde ne kadar tas varsa hepsini seq e gondersin
+            }
         }
     }
 }

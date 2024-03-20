@@ -1,0 +1,2 @@
+﻿Buraya mvc de kullandığn user nesnesi icin bir userloginvm olustur.
+Ve ortak user nesnene token proplarını ekle.

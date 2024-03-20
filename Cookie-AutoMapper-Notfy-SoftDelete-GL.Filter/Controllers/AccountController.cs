@@ -1,12 +1,12 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
 using AutoMapper;
+using Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter.ExtensionsandConfig.Cookies;
 using Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter.Layers.Bussines.Abstract;
 using Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter.Layers.Entities.Concrete;
 using Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter.Models.VMs.UserVM;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 
 namespace Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter.Controllers
 {
@@ -36,27 +36,12 @@ namespace Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter.Controllers
             {
                 try
                 {
+
                     User user = mapper.Map<User>(loginVM);
                     User user1 = await userManager.ChackUser(user);
 
-                    var claims = new List<Claim>()
-                    {
-                        new Claim(ClaimTypes.Email,user1.Email),
-                        new Claim(ClaimTypes.Name,user1.Ad),
-                        new Claim("TcNo",user1.TcNo.ToString()),
-                        new Claim(ClaimTypes.Role,user1.Rol)
-                    };
-
-                    var claimIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-
-                    var authenticationProperty = new AuthenticationProperties()
-                    {
-                        IsPersistent = loginVM.Rememberme
-                    };
-
-                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
-                        new ClaimsPrincipal(claimIdentity),
-                        authenticationProperty);
+                    CookieManager cookieManager = new CookieManager();
+                    await cookieManager.CookieCreate(HttpContext, user1, loginVM);
 
                     if ((User.IsInRole("Admin")) && (User.Identity.IsAuthenticated))
                     {
@@ -65,7 +50,6 @@ namespace Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter.Controllers
                     else if ((User.IsInRole("Üye")) && (User.Identity.IsAuthenticated))
                     {
                         return RedirectToAction("Index", "Shopping");
-
                     }
 
                 }
@@ -89,5 +73,8 @@ namespace Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter.Controllers
             return RedirectToAction("Index", "Home");
 
         }
+
+
+
     }
 }
