@@ -1,4 +1,4 @@
-﻿namespace WebAPI_for_Client_Side
+﻿namespace WebAPI_for_Client_Side.Models
 {
     public class Shipper //Cekilecek verilerin modellenmesi gerekiyor.
     {

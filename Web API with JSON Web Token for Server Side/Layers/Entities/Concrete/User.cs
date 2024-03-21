@@ -9,6 +9,9 @@ namespace Web_API_with_JSON_Web_Token_for_Server_Side.Layers.Entities.Concrete
         public int TcNo { get; set; }
         public string Password { get; set; }
         public string Rol { get; set; }
+        public string? AccessToken { get; set; }
+        public string? RefreshToken { get; set; }
+        public DateTime? ExprationToken { get; set; } // Tokenin gecerlilik suresi
 
     }
 }

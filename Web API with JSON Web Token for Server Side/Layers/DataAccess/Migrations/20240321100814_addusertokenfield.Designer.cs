@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Web_API_with_JSON_Web_Token_for_Server_Side.Layers.DataAccess.DBContexts;
 
@@ -11,9 +12,11 @@ using Web_API_with_JSON_Web_Token_for_Server_Side.Layers.DataAccess.DBContexts;
 namespace Web_API_with_JSON_Web_Token_for_Server_Side.Migrations
 {
     [DbContext(typeof(SqlDbContext))]
-    partial class SqlDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240321100814_addusertokenfield")]
+    partial class addusertokenfield
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -163,9 +166,6 @@ namespace Web_API_with_JSON_Web_Token_for_Server_Side.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("AccessToken")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Ad")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -181,9 +181,6 @@ namespace Web_API_with_JSON_Web_Token_for_Server_Side.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<DateTime?>("ExprationToken")
-                        .HasColumnType("datetime2");
-
                     b.Property<bool>("IsDelete")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
@@ -193,9 +190,6 @@ namespace Web_API_with_JSON_Web_Token_for_Server_Side.Migrations
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("RefreshToken")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Rol")
                         .IsRequired()

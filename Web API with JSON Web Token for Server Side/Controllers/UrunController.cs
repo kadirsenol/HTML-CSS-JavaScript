@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Web_API_with_JSON_Web_Token_for_Server_Side.Layers.Bussines.Abstract;
 using Web_API_with_JSON_Web_Token_for_Server_Side.Layers.Entities.Concrete;
@@ -7,7 +8,7 @@ namespace Web_API_with_JSON_Web_Token_for_Server_Side.Controllers
 {
     //Note==> Metotlar icerisinde ki kurallar bussines layer de tanimlanacak ve burasida try catch icerisinde olusturulacak !.
 
-
+    [Authorize(Roles = "Admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class UrunController(IUrunManager urunmanager) : ControllerBase

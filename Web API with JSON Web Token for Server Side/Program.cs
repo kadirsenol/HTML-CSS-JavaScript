@@ -1,3 +1,4 @@
+using Web_API_with_JSON_Web_Token_for_Server_Side.MyExtensions.AutoMapper;
 using Web_API_with_JSON_Web_Token_for_Server_Side.MyExtensions.Services;
 
 namespace Web_API_with_JSON_Web_Token_for_Server_Side
@@ -8,21 +9,32 @@ namespace Web_API_with_JSON_Web_Token_for_Server_Side
         {
             var builder = WebApplication.CreateBuilder(args);
 
+
             // Add services to the container.
 
             builder.Services.AddManager(); //MyExtensions class
+            builder.Services.AddTokenSetting(builder.Configuration); //MyExtensions class (Burada configuration nesnesi builderin içinde hazirda var. Ama baska yerde IConfiguration olarak olusturaman gerekli.)
 
             #region Tek Satirlik Servis Eklentileri
             #region DbContext
             //builder.Services.AddDbContext<SqlDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("MyConstr"))); // DBContext i servisler vasitasi ile saglamak mantikli oldugunda burayi kullan ve constr yi guvenlik acisindan screet dosyasina ekle. 
-            #endregion 
+            #endregion
+
+            #region AutoMapper
+            builder.Services.AddAutoMapper(typeof(AutoMapperConfig));
+            #endregion
+
             #endregion
 
 
-            builder.Services.AddControllers(); //AddJsonOptions eklentisi ile Db den iliskili kayitlari da getirmek icin gerekli ayar. Bu eklenti ile respons, $id ve value degerleri ile geliyor.
+            builder.Services.AddControllers();
+            #region Db den ilgili kayitlari getirmek icin gerekli AddController eklentisi
+            //Kullanicaksan, burayi extension classina ekle ve AddSwagerGen eklentisini kaldirip extension classindaki olusturdugun metodu servislere ekle. Bu eklenti ile respons, $id ve value degerleri ile geliyor.
+
             //builder.Services.AddControllers().AddJsonOptions(p =>
             //    p.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve
-            //);
+            //); 
+            #endregion
 
 
 
@@ -32,6 +44,8 @@ namespace Web_API_with_JSON_Web_Token_for_Server_Side
 
             builder.Services.AddSwaggerGen();
             #region Swagger Authorization icin gerekli kodlar
+            // Kullanicaksan, burayi extension classina ekle ve AddSwagerGen eklentisini kaldirip extension classindaki olusturdugun metodu servislere ekle. 
+
             //        builder.Services.AddSwaggerGen(c =>
             //        {
             //            c.SwaggerDoc("v1", new OpenApiInfo
@@ -63,6 +77,7 @@ namespace Web_API_with_JSON_Web_Token_for_Server_Side
             #endregion            
 
             #region CORS Policy
+            // Kullanicaksan burayi extension classina ekle ve extension classinda ki olsuturdugun metodu servislere ekle. Ardindan app.User() middle wareyi uygula.
 
             //builder.Services.AddCors(options => options.AddDefaultPolicy(builder => // Butun originlerden gelen isteklerinde kabul edilmesi icin gerekli ayarlar eklentisi.
             //                                                            builder.AllowAnyHeader() //Gelen isteklerde butun basliklarin kabul edilmesi
@@ -78,9 +93,10 @@ namespace Web_API_with_JSON_Web_Token_for_Server_Side
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
             //app.UseCors();//Cors Policy eklentisinin kullanilmasini saglayan middleware eklentisi.
             app.UseHttpsRedirection();
-            app.UseAuthentication();//JWT ile login islemi icin Authentication middleware eklentisi
+            app.UseAuthentication();//JWT ile login islemi icin Authentication middleware eklentisi. JWT veya Cookie kullanmazsan buna gerek yok.
             app.UseAuthorization();
 
 
