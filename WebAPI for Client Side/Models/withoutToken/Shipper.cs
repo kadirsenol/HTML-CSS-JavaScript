@@ -1,4 +1,4 @@
-﻿namespace WebAPI_for_Client_Side.Models
+﻿namespace WebAPI_for_Client_Side.Models.withoutToken
 {
     public class Shipper //Cekilecek verilerin modellenmesi gerekiyor.
     {

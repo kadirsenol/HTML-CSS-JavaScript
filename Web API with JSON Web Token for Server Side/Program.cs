@@ -17,7 +17,7 @@ namespace Web_API_with_JSON_Web_Token_for_Server_Side
 
             #region Tek Satirlik Servis Eklentileri
             #region DbContext
-            //builder.Services.AddDbContext<SqlDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("MyConstr"))); // DBContext i servisler vasitasi ile saglamak mantikli oldugunda burayi kullan ve constr yi guvenlik acisindan screet dosyasina ekle. 
+            // builder.Services.AddDbContext<SqlDbContext>(); // DBContext i servisler vasitasi ile saglamak mantikli oldugunda burayi kullan ve constr yi guvenlik acisindan screet dosyasina ekle.
             #endregion
 
             #region AutoMapper

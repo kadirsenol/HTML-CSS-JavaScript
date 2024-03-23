@@ -13,7 +13,7 @@ namespace Web_API_with_JSON_Web_Token_for_Server_Side.Layers.Bussines.Concrete
         public IRepository<T, TId, SqlDbContext> _repo { get; } // DBContext degismesi durumunda burasi(1/3) degistirilecek. Bussines layer de kompleks is kurallari ve api projesinde ki put isleminde dbcontexte ihtiyac duydugum icin IManagere ekledigim dbcontext.
                                                                 // DbContext ctordan istendiginde degismesi halinde herbir manager sinifi icin degistirilmesi gerekecek. Ama bu sekilde sadece yerden degismesi yetiyor.
 
-        public Manager()
+        public Manager() //SqlDbContext dbContext
         {
             _repo = new Repository<T, TId, SqlDbContext>(); // DBContext degismesi durumunda burasi(2/3) degistirilecek.
         }
@@ -61,6 +61,10 @@ namespace Web_API_with_JSON_Web_Token_for_Server_Side.Layers.Bussines.Concrete
         public async virtual Task<T?> FirstOrDefault(Expression<Func<T, bool>> expression)
         {
             return await _repo.FirstOrDefault(expression);
+        }
+        public async virtual Task<bool> Any(Expression<Func<T, bool>> expression)
+        {
+            return await _repo.Any(expression);
         }
     }
 }

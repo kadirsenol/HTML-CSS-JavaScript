@@ -8,9 +8,10 @@ namespace Web_API_with_JSON_Web_Token_for_Server_Side.Layers.DataAccess.Concrete
     public class Repository<T, TId, TDbContext> : IRepository<T, TId, TDbContext> where T : BaseEntity<TId> where TDbContext : DbContext, new()
     {
         public TDbContext dbContext { get; }
-        public Repository()
+        public Repository() //TDbContext dbcon
         {
             dbContext = new TDbContext();
+            //dbContext = dbcon;
         }
         public async Task<int> Insert(T entity)
         {
@@ -58,6 +59,11 @@ namespace Web_API_with_JSON_Web_Token_for_Server_Side.Layers.DataAccess.Concrete
         public async Task<T> GetByPK(TId pk)
         {
             return await dbContext.Set<T>().FindAsync(pk);
+        }
+
+        public async Task<bool> Any(Expression<Func<T, bool>> expression)
+        {
+            return await dbContext.Set<T>().AnyAsync(expression);
         }
 
         public async Task<IEnumerable<T>?> GetAllInclude(Expression<Func<T, bool>>? expression, params Expression<Func<T, object>>[] include)

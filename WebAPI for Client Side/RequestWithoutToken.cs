@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Net.Http.Headers;
 using System.Text;
-using WebAPI_for_Client_Side.Models;
+using WebAPI_for_Client_Side.Models.withoutToken;
 namespace WebAPI_for_Client_Side
 {
     public class RequestWithoutToken

@@ -17,7 +17,7 @@ namespace Web_API_with_JSON_Web_Token_for_Server_Side.Controllers
 
 
         [HttpGet("[action]")] //Action belirtirsen actionsuz ulasamazsin, action belirtmezsen action yazarsan ulasamazsin.
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll() // Geri donusu IActionResult ta gondersen model olarakda gondersen jsonlayip gonderiyor. Client tarafindan readstringasyc metodu ile contenti jsonstring olarak okuyup ardindan bunu istedigin modele deserialize edebilirsin.
         {
             ICollection<Urun> uruns = await urunManager.GetAll();
 
@@ -54,7 +54,7 @@ namespace Web_API_with_JSON_Web_Token_for_Server_Side.Controllers
                 int efected = await urunManager.Insert(urun);
                 if (efected > 0)
                 {
-                    return Created("", urun); //Status code 201, olusturulan nesnenin urisine giderek ozelliklerini okuyup geri gonduruyor
+                    return Created("", urun); //Status code 201, olusturulan nesnenin urisine giderek ozelliklerini okuyup geri donduruyor
                     //return CreatedAtAction("GetById", new { id = urun.Id }, urun); // İstenilen nesnenin olusturulup farkli bir actiona yonlendirilmesi
                 }
                 else
@@ -71,12 +71,13 @@ namespace Web_API_with_JSON_Web_Token_for_Server_Side.Controllers
         [HttpPut] // Bir tane put islemi oldugundan action belirtmedim. Id degeri degistirilemeyecegi icin route de id belirtilmesine gerek yok.
         public async Task<IActionResult> Update(Urun urun)
         {
+            var chack = await urunManager.Any(p => p.Id == urun.Id);
 
-            Urun chack = await urunManager.GetByPK(urun.Id);
-            if (chack != null)
+            if (chack)
             {
                 urunManager._repo.dbContext.Entry(urun).State = EntityState.Modified;
                 await urunManager._repo.dbContext.SaveChangesAsync();
+
                 return Ok(urun);
             }
             else
