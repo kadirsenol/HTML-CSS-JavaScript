@@ -8,9 +8,10 @@ namespace Web_API_with_JSON_Web_Token_for_Server_Side.Layers.DataAccess.DBContex
     public class SqlDbContext : DbContext
     {
 
+        #region DBCONTEXT I CONSTR SIZ SERVISLERE EKLEYEBILDIGIN ICIN BURAYI KULLANMA SIL. EGER DBCONTEXT I BIR YERDE BAGIMLI YAPARSAN, BURAYI SILIP SERVISLERE DBCONTEXT I CONSTRSIZ EKLE.
         //public SqlDbContext(DbContextOptions<SqlDbContext> options) : base(options) { } //Bu constucter MVC projesinde DbContext i servise ekleyebilmek için gerekli oluyor.
-        //public SqlDbContext() { }                                                       //Bununla birlikte birde parametresiz ctor da eklenmeli. Eger dbcontex e ihtiyac yok ise ctorlara gerek yok
-        // DBCONTEXT I CONSTR SIZ SERVISLERE EKLEYEBILDIGIN ICIN BURAYI KULLANMA SIL. EGER DBCONTEXT I BIR YERDE BAGIMLI YAPARSAN, BURAYI SILIP SERVISLERE DBCONTEXT I EKLE.
+        //public SqlDbContext() { }                                                       //Bununla birlikte birde parametresiz ctor da eklenmeli. Eger dbcontex e ihtiyac yok ise ctorlara gerek yok 
+        #endregion
 
 
         public DbSet<Urun> Urunler { get; set; }
