@@ -19,7 +19,7 @@ namespace WebAPI_for_Client_Side
             #region RequestWithToken
             UserLoginVm userLoginVm = new UserLoginVm() { Email = "kdr@hotmail.com", Password = "6161" };
             Urun urun = new Urun() { KategoriAdi = "Elektronik", StokAdet = 100, UrunAdi = "Capasitor", UrunFiyati = 10 };
-            Urun updateurun = new Urun() { Id = 14, UrunAdi = "1 id ad degisti", KategoriAdi = "elektronik", StokAdet = 50, UrunFiyati = 100 };
+            Urun updateurun = new Urun() { Id = 15, UrunAdi = "1 id ad degisti", KategoriAdi = "elektronik", StokAdet = 50, UrunFiyati = 100 };
 
             RequestWithToken requestWithToken = new RequestWithToken();
 
@@ -29,9 +29,9 @@ namespace WebAPI_for_Client_Side
 
             //await requestWithToken.PostApi(userLoginVm, urun);
 
-            //await requestWithToken.PutApi(userLoginVm, updateurun);
+            await requestWithToken.PutApi(userLoginVm, updateurun);
 
-            await requestWithToken.DeleteApi(userLoginVm, 14);
+            //await requestWithToken.DeleteApi(userLoginVm, 14);
             #endregion
 
 

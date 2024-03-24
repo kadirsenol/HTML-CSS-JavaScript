@@ -9,8 +9,8 @@ namespace Web_API_with_JSON_Web_Token_for_Server_Side.Layers.DataAccess.DBContex
     {
 
         #region DBCONTEXT I CONSTR SIZ SERVISLERE EKLEYEBILDIGIN ICIN BURAYI KULLANMA SIL. EGER DBCONTEXT I BIR YERDE BAGIMLI YAPARSAN, BURAYI SILIP SERVISLERE DBCONTEXT I CONSTRSIZ EKLE.
-        //public SqlDbContext(DbContextOptions<SqlDbContext> options) : base(options) { } //Bu constucter MVC projesinde DbContext i servise ekleyebilmek için gerekli oluyor.
-        //public SqlDbContext() { }                                                       //Bununla birlikte birde parametresiz ctor da eklenmeli. Eger dbcontex e ihtiyac yok ise ctorlara gerek yok 
+        //public SqlDbContext(DbContextOptions<SqlDbContext> options) : base(options) { } // Bu ctro, eger constr yi secret.json dosyasina eklemek istersen ilgili dbcontext sinifinin constr sinin program.cs de tanimlandigini bildirmek icin base gonderiyoruz. Eger bunu kullaniyorsan assagida ki OnConfiguring metodunu ovverride etmene gerek yok. 
+        //public SqlDbContext() { }                                                       // Proje icerisinde DbContextin eger parametresiz olarakta instancesi alinmasini istersen birde ek olarak bunu eklemelisin ve bu sefer OnConfigurin metodunu burada override etmelisin. Mesela benim tasarladigim repository imde DbContexti generic yapmak adina parametresiz instancesini aldigim icin burada onconfiguringi override etmek zorundayim. Bu sefer eger servislere dbcontext eklemek gerekirse basede constr belirtmeden dbcontext servislere eklenebilir cunku constr burada override edilip bildirilmis.
         #endregion
 
 
