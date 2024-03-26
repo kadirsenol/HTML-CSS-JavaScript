@@ -1,3 +1,4 @@
+using AspNetCoreHero.ToastNotification.Extensions;
 using Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter.ExtensionsandConfig.AutoMapper;
 using Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter.ExtensionsandConfig.Services;
 using Serilog;
@@ -22,7 +23,7 @@ namespace Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter
 
                 // Add services to the container.
                 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();//AddRazor extension metodu; anlik degisimleri
-                                                                                        //refresh esnasinda hemen yansitiyor.
+                                                                                        //refresh esnasinda hemen yansitiyor. Bunun icin Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation paketini indir.
 
                 #region Tek Satirlik Servis Eklentileri
                 #region DbContext
@@ -54,6 +55,8 @@ namespace Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter
                     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                     app.UseHsts();
                 }
+
+                app.UseNotyf();
 
                 app.UseHttpsRedirection();
                 app.UseStaticFiles();

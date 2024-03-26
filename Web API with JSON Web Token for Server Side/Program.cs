@@ -17,7 +17,7 @@ namespace Web_API_with_JSON_Web_Token_for_Server_Side
 
             #region Tek Satirlik Servis Eklentileri
             #region DbContext
-            //builder.Services.AddDbContext<SqlDbContext>(); // DbContexti servislerden saglamak gerekirse burayi servislere ekle. Eger dbcontext icerisinde OnConfigurin override edilip constr verilmisse burayi constrsiz, OnConfigurin override edilmemisse secret.json dosyasina "ConnectionString":{"constr":"xxx"} seklinde ConnectionStrings olarak belirt ve keyini servise refere gec.
+            //builder.Services.AddDbContext<SqlDbContext>(); // DbContexti servislerden saglamak gerekirse burayi servislere ekle. Eger dbcontext icerisinde OnConfigurin override edilip constr verilmisse burayi constrsiz, OnConfigurin override edilmemisse secret.json dosyasina "ConnectionStrings":{"constr":"xxx"} seklinde ConnectionStrings olarak belirt ve keyini servise refere gec.
             #endregion
 
             #region AutoMapper
