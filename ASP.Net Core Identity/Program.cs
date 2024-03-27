@@ -1,4 +1,5 @@
 using Asp.Net_Core_Identity.Layers.DataAccess.DBContexts;
+using ASP.Net_Core_Identity.MyExtensions.AutoMapper;
 using ASP.Net_Core_Identity.MyExtensions.Services;
 using AspNetCoreHero.ToastNotification.Extensions;
 using Microsoft.EntityFrameworkCore;
@@ -15,6 +16,9 @@ namespace ASP.Net_Core_Identity
             builder.Services.AddDbContext<SqlDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("MyConstr")));
             builder.Services.AddIdentitySettings();
             builder.Services.AddNotyfSetting();
+            builder.Services.AddSpecialPolicy();
+            builder.Services.AddAutoMapper(typeof(AutoMapperConfig));
+
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();

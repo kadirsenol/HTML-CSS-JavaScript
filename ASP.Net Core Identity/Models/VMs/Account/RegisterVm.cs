@@ -20,5 +20,8 @@ namespace ASP.Net_Core_Identity.Models.VMs.Account
         [Compare("Password", ErrorMessage = "Girilen parolalar eşleşmiyor")]
         public string RePassword { get; set; }
 
+        [Required(AllowEmptyStrings = false, ErrorMessage = "TcNo Alani Zorunludur")]
+        public int TcNo { get; set; }
+
     }
 }

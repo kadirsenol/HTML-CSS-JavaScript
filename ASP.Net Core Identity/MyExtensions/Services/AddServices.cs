@@ -53,5 +53,12 @@ namespace ASP.Net_Core_Identity.MyExtensions.Services
 
             return services;
         }
+
+        public static IServiceCollection AddSpecialPolicy(this IServiceCollection services) // Bu yontem sadece verilen degeri karsilamasi sartini ele alir. Eger istenmeyen durum varsa farkli yontem uygulaniyor.
+        {                                                                                   // Burada TCNO adında bir politika olusturduk ve bunu TcNo adinda ki bir claim imize bagladik.
+            services.AddAuthorization(options => options.AddPolicy(                         // Sarti ise:Kimlikte ki TcNo claim degeri sadece 123 olan kullanicilara yetki izni verilmesidir.
+                "TCNO", policy => policy.RequireClaim("TcNo", "123")));
+            return services;
+        }
     }
 }

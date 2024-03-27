@@ -1,17 +1,22 @@
 ﻿using Asp.Net_Core_Identity.Layers.Entities.Concrete;
 using ASP.Net_Core_Identity.Models.VMs.Account;
+using ASP.Net_Core_Identity.MyExtensions.Email;
 using AspNetCoreHero.ToastNotification.Abstractions;
+using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
+using System.Text;
 
 namespace ASP.Net_Core_Identity.Controllers
 {
-    public class AccountController(UserManager<MyUser> userManager, RoleManager<IdentityRole> roleManager, SignInManager<MyUser> signInManager, INotyfService notyf) : Controller
+    public class AccountController(UserManager<MyUser> userManager, RoleManager<IdentityRole> roleManager, SignInManager<MyUser> signInManager, INotyfService notyf, IMapper mapper) : Controller
     {
         private readonly UserManager<MyUser> userManager = userManager;
         private readonly RoleManager<IdentityRole> roleManager = roleManager;
         private readonly SignInManager<MyUser> signInManager = signInManager;
         private readonly INotyfService notyf = notyf;
+        private readonly IMapper mapper = mapper;
 
         public IActionResult Index()
         {
@@ -32,14 +37,10 @@ namespace ASP.Net_Core_Identity.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    return View(registerVm);
+                    throw new Exception("Tarayıcınızın JavaScript kullanımı devre dışı bırakılmış olabilir, lütfen kontrol edin. !");
                 }
-                MyUser myUser = new MyUser()
-                {
-                    Email = registerVm.Email,
-                    UserName = registerVm.UserName
-                };
 
+                MyUser myUser = mapper.Map<MyUser>(registerVm);
 
                 var result = await userManager.CreateAsync(myUser, registerVm.Password); // Parolayi hash leyerek kaydediyor.
                 if (!result.Succeeded)
@@ -49,6 +50,18 @@ namespace ASP.Net_Core_Identity.Controllers
                         if (item.Code.Contains("DuplicateEmail"))
                         {
                             throw new Exception($"{registerVm.Email} mail adresi zaten mevcut !");
+                        }
+                        if (item.Code.Contains("DuplicateName"))
+                        {
+                            throw new Exception($"{registerVm.UserName} kullanıcı adı zaten mevcut !");
+                        }
+                        if (item.Code.Contains("PasswordTooShort"))
+                        {
+                            throw new Exception($"Şifre en az 6 karakterden oluşmalıdır. !"); //Bunu validation atribute ile yapabilirsin.
+                        }
+                        else
+                        {
+                            throw new Exception($"Kullanıcı kayıt sırasında bir hata olustu, lütfen tekrar deneyiniz. !");
                         }
                     }
 
@@ -66,13 +79,61 @@ namespace ASP.Net_Core_Identity.Controllers
                     throw new Exception($"Kayıt sırasında bir hata olustu: {result2.Errors.First().Description}");
                 }
 
-                return RedirectToAction("Login");
+                var code = await userManager.GenerateEmailConfirmationTokenAsync(myUser);
+                StringBuilder message = new();
+                message.AppendLine("<html>");
+                message.AppendLine("<head>")
+                    .AppendLine("<meta charset='UTF-8'")
+                    .AppendLine("</head>");
+                message.AppendLine($"<p> Merhaba {myUser.UserName} </p> <br>");
+                message.AppendLine("<p> Üyeliğini tamamlamak için aşşağıda ki linke tıklaman yeterli olucak. </p>");
+                message.AppendLine($"<a href='http://localhost:5011/ConfirmEmail?uid={myUser.Id}&code={code}'> Tıklayın. </a>");
+                message.AppendLine("</body>");
+                message.AppendLine("</html>");
+
+                EmailHelper emailHelper = new EmailHelper();
+                bool sonuc = await emailHelper.SendEmail(myUser.Email, message.ToString());
+                if (sonuc)
+                {
+                    notyf.Information($"{myUser.Email} adresine bir doğrulama linki gönderdik, üyeliğinin tamamlanması için mail içerisinde ki linke tıklamalısın.");
+                }
+                else
+                {
+                    throw new Exception("Mail gönderimi sırasında bir hata oluştu. Lütfen tekrar deneyin.");
+                }
+
             }
             catch (Exception ex)
             {
                 notyf.Error(ex.Message);
             }
             return View();
+        }
+
+        [Route("ConfirmEmail")]
+        public async Task<IActionResult> ConfirmEmail(string uid, string code)
+        {
+            if (!string.IsNullOrEmpty(uid) && !string.IsNullOrEmpty(code))
+            {
+                var user = await userManager.FindByIdAsync(uid);
+                code = code.Replace(' ', '+');
+                var result = await userManager.ConfirmEmailAsync(user, code);
+
+                if (result.Succeeded)
+                {
+                    notyf.Success("Üyelik işlemi başarıyla tamamlandı, giriş yapabilirsin. :)");
+                    return RedirectToAction("Login", "Account");
+                }
+                else
+                {
+                    notyf.Error("Mail onaylama işlemi başarısız, lütfen tekrar deneyin. !");
+                }
+            }
+            else
+            {
+                notyf.Error("Mail onaylama sırasında bir hata oluştu, lütfen tekrar deneyiniz. !");
+            }
+            return RedirectToAction("Register", "Account");
         }
 
         public async Task<IActionResult> Login()
@@ -84,7 +145,60 @@ namespace ASP.Net_Core_Identity.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginVm loginVm)
         {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    throw new Exception("Tarayıcınızın JavaScript kullanımı devre dışı bırakılmış olabilir, lütfen kontrol edin. !");
+                }
+                else
+                {
+                    var user = await userManager.FindByEmailAsync(loginVm.Email);
+                    if (user == null)
+                    {
+                        throw new Exception($"{loginVm.Email} adresli kullanıcı mevcut değil. !");
+                    }
+                    if (!await userManager.IsEmailConfirmedAsync(user))
+                    {
+                        throw new Exception($"{user.Email} mail adresi onaylanmamış. !");
+                    }
+
+                    await signInManager.SignOutAsync(); // Her ihtimale karşın çıkış yapilir
+                    var result = await signInManager.PasswordSignInAsync(user, loginVm.Password, loginVm.RememberMe, false);
+
+                    #region AddClaims
+                    List<Claim> claims = new List<Claim>()
+                    {
+                        //new Claim(ClaimTypes.Name,user.UserName),
+                        new Claim("TcNo",user.TcNo.ToString())
+                    };
+                    await userManager.AddClaimsAsync(user, claims);
+                    var claim = await userManager.GetClaimsAsync(user);
+                    #endregion
+
+                    if (result.Succeeded)
+                    {
+                        notyf.Success("Giriş işlemi başarılı.!");
+                        return RedirectToAction("Index", "Profile");
+                    }
+                    else
+                    {
+                        throw new Exception("Kullanıcı adı veya parola hatalı. !");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                notyf.Error(ex.Message);
+            }
+
             return View();
+        }
+
+        public async Task<IActionResult> LogOut()
+        {
+            await signInManager.SignOutAsync();
+            return RedirectToAction("Login");
         }
     }
 }
