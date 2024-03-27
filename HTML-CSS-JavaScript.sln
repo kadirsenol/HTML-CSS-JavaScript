@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPI for Client Side", "W
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web API with JSON Web Token for Server Side", "Web API with JSON Web Token for Server Side\Web API with JSON Web Token for Server Side.csproj", "{B1309E9E-8CCA-4848-8C7E-3421FFE69F96}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASP.Net Core Identity", "ASP.Net Core Identity\ASP.Net Core Identity.csproj", "{D3EE6F27-F784-4383-AB66-5DD2E79A3008}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ASP.Net Core Identity", "ASP.Net Core Identity\ASP.Net Core Identity.csproj", "{D3EE6F27-F784-4383-AB66-5DD2E79A3008}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AJAX for HTTP Methods", "AJAX for HTTP Methods\AJAX for HTTP Methods.csproj", "{C055F171-97DA-4C19-BBCD-77B97A7C86F4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{D3EE6F27-F784-4383-AB66-5DD2E79A3008}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D3EE6F27-F784-4383-AB66-5DD2E79A3008}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D3EE6F27-F784-4383-AB66-5DD2E79A3008}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C055F171-97DA-4C19-BBCD-77B97A7C86F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C055F171-97DA-4C19-BBCD-77B97A7C86F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C055F171-97DA-4C19-BBCD-77B97A7C86F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C055F171-97DA-4C19-BBCD-77B97A7C86F4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

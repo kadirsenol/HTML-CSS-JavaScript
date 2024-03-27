@@ -40,5 +40,7 @@ namespace Web_API_with_JSON_Web_Token_for_Server_Side.Controllers
             }
 
         }
+
+        //Register kısmını web site uzerinden gerceklestirecegim icin api tarafinda yazmadim.
     }
 }

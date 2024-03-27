@@ -1,0 +1,49 @@
+﻿@model RegisterVm
+
+<div class="container">
+
+    <div class="row">
+
+        <form id="loginForm" asp-action="Register" method="post">
+
+            <div class="col-4">
+
+                <div class="form-group">
+                    <input asp-for="UserName" value="" class="form-control" placeholder="Ad" />
+                    <div> <span asp-validation-for="UserName" class="text-danger"></span> </div>
+                </div>
+                <div class="form-group mt-2">
+                    <input asp-for="TcNo" value="" class="form-control" placeholder="TcNo" />
+                    <div> <span asp-validation-for="TcNo" class="text-danger"></span> </div>
+                </div>
+                <div class="form-group mt-2">
+                    <input asp-for="Email" value=""  class="form-control" placeholder="Email" />
+                    <div> <span asp-validation-for="Email" class="text-danger"></span> </div>
+                </div>
+                <div class="form-group mt-2">
+                    <input asp-for="Password" value="" type="password" class="form-control" placeholder="Parola" />
+                    <div> <span asp-validation-for="Password" class="text-danger"></span> </div>
+                </div>
+                <div class="form-group mt-2">
+                    <input asp-for="RePassword" value="" type="password" class="form-control" placeholder="Parola Tekrarı" />
+                    <div> <span asp-validation-for="RePassword" class="text-danger"></span> </div>
+                </div>
+                <div class="row">
+                    <div class="form-group mt-2 me-4 col-4">
+                        <button id="loginButton" type="submit" class="btn btn-primary">Kayıt Ol</button>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+@section Scripts
+{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    @await Component.InvokeAsync("Notyf") @*Notyf icin js eklentisi*@
+}
