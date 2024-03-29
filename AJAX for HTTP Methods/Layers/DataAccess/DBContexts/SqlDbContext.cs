@@ -37,14 +37,19 @@ namespace AJAX_for_HTTP_Methods.Layers.DataAccess.DBContexts
 
             foreach (var item in changes)
             {
-                item.State = EntityState.Modified;
-                BaseEntity<int> baseEntity = item.Entity as BaseEntity<int>;
-                baseEntity.IsDelete = true;
-                baseEntity.UpdateDate = DateTime.UtcNow.AddHours(3);
-
-                MyUser userEntity = item.Entity as MyUser; // IdentityUserimi genislettigim icin QueryFilter duzenlemesini buraya da ayri olarak ekledim.
-                userEntity.IsDelete = true;
-                userEntity.UpdateDate = DateTime.UtcNow.AddHours(3);
+                if (item.GetType() == typeof(MyUser))
+                {
+                    MyUser userEntity = item.Entity as MyUser; // IdentityUserimi genislettigim icin QueryFilter duzenlemesini buraya da ayri olarak ekledim.
+                    userEntity.IsDelete = true;
+                    userEntity.UpdateDate = DateTime.UtcNow.AddHours(3);
+                }
+                else
+                {
+                    item.State = EntityState.Modified;
+                    BaseEntity<int> baseEntity = item.Entity as BaseEntity<int>;
+                    baseEntity.IsDelete = true;
+                    baseEntity.UpdateDate = DateTime.UtcNow.AddHours(3);
+                }
             }
 
             return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);

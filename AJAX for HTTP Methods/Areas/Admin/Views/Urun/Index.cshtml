@@ -1,97 +1,152 @@
 ﻿@model ICollection<string>
-<a class="btn btn-primary mt-2" asp-action="Create">Yeni Urun Tanimla</a>
+<a id="showFormButton" class="btn btn-primary mt-2" >Oluştur</a>
 <input type="text" id="arama" class="form-control mt-2" placeholder="Ara" />
-<button type="button" class="btn btn-success mt-2" id="btnAra">Ara</button>
 
 
 <select id="entityno" class="form-select-control">
     @* Bana optionumun valuesinden gelecek degeri KonuId ye at. *@
     <option value="0"> Listelenecek Nesneyi Seçiniz </option>
-    @{ int i =1;
-        @foreach (var item in Model)
-    {
-            <option value="@i">@item</option> @*  item.id ile gelen deger KonuId degerine atanacak *@
-        i++; 
-    }
+    @{
+        int i = 1;
+            @foreach (var item in Model)
+        {
+                <option value="@i">@item</option> @*  item.id ile gelen deger KonuId degerine atanacak *@
+            i++;
+        }
     }
 </select>
 
 <table class="table table-hower mt-2" id="productTable">
     <thead>
         <tr id="theadtr">
-
-
         </tr>
     </thead>
     <tbody id="tbodytr">
-        
     </tbody>
 </table>
 
-@section Scripts{
+@section Scripts {
 
     <script>
-        $(document).ready(function () {
-            $('#entityno').change(function () {
-                var selectedValue = $('#entityno').val(); // Seçilen değeri al
-                if (selectedValue == "4") { // Eğer seçilen değer 4 ise
-                    $.ajax({
-                        url: 'http://localhost:5257/Admin/Urun/UrunGet', // İstek yapılacak URL (uygun şekilde değiştirin)                    
-                        success: function (data) {
-                            $('#theadtr').html('<th>Id</th><th>Ürün Adı</th><th>Stok Adedi</th><th>Kategori Adı</th><th>Ürün Fiyatı</th><th>Create Date</th><th>Update Date</th><th>Is Delete</th><th><a> </a></th>')
-                            let html = '';
-                            for (let item of data) {
-                                html = html + '<tr>'
-                                html = html + '<td>'  + item.id +  '</td>'
-                                html = html + '<td>' + item.urunAdi + '</td>'
-                                html = html + '<td>' + item.stokAdet + '</td>'
-                                html = html + '<td>' + item.kategoriAdi + '</td>'
-                                html = html + '<td>' + item.urunFiyati + '</td>'
-                                html = html + '<td>' + item.createDate + '</td>'
-                                html = html + '<td>' + item.updateDate + '</td>'
-                                html = html + '<td>' + item.isDelete + '</td>'
-                                html = html + '</tr>'
-                            }
-                            $('#tbodytr').html(html)
-                        },
-                        error: function (error) {
-                            // Hata durumunda yapılacak işlemler
-                            console.log(error);
-                        }
-                    });
-                }
-                if (selectedValue == "2") { // Eğer seçilen değer 4 ise
-                    $.ajax({
-                        url: 'http://localhost:5257/Admin/Message/MessageGet', // İstek yapılacak URL (uygun şekilde değiştirin)
-                        success: function (data) {
-                            $('#theadtr').html('<th>Id</th><th>Ad</th><th>Email</th><th>Mesaj</th><th>Konu Id</th><th>Data</th><th>File Path</th><th>Create Date</th><th>Update Date</th><th>Is Delete</th><th><a> </a></th>')
-                            let html = '';
-                            for (let item of data) {
-                                html = html + '<tr>'
-                                html = html + '<td>' + item.id + '</td>'
-                                html = html + '<td>' + item.ad + '</td>'
-                                html = html + '<td>' + item.email + '</td>'
-                                html = html + '<td>' + item.mesaj + '</td>'
-                                html = html + '<td>' + item.konuId + '</td>'
-                                html = html + '<td>' + item.data + '</td>'
-                                html = html + '<td>' + item.filePath + '</td>'
-                                html = html + '<td>' + item.createDate + '</td>'
-                                html = html + '<td>' + item.updateDate + '</td>'
-                                html = html + '<td>' + item.isDelete + '</td>'
-                                html = html + '</tr>'
-                            }
-                            $('#tbodytr').html(html)
-                        },
-                        error: function (error) {
-                            // Hata durumunda yapılacak işlemler
-                            console.log(error);
-                        }
-                    });
-                }
+
+        $(document).ready(function () { // $(document).ready sayfa ilk yuklendiginde elementler hazir oldugunda demek.
+            $('#entityno').change(function () { // $('#id').click veya change yontemi Sayafada ki statik elementleri dinler.
+                Get();
             });
+
+
+            $(document).on('click', '.deleteById', function () { //$(document).on() dinamik elementleri dinlemek icin kullanılır
+                Delete(this);
+            });
+
+
+            
+
+            ////////////////////////<GET>////////////////////////////
+                 function Get() { 
+                     if ($('#entityno').val() == "4") {
+                         $.ajax({
+                             url: 'http://localhost:5257/Admin/Urun/UrunGet',
+                             success: function (data) {
+                                 $('#theadtr').html('<th>Id</th><th>Ürün Adı</th><th>Stok Adedi</th><th>Kategori Adı</th><th>Ürün Fiyatı</th><th>Create Date</th><th>Update Date</th><th>Is Delete</th><th><a> </a></th>')
+                                 let html = '';
+                                 for (let item of data) {
+                                     html = html + '<tr>'
+                                     html = html + '<td>' + item.id + '</td>'
+                                     html = html + '<td>' + item.urunAdi + '</td>'
+                                     html = html + '<td>' + item.stokAdet + '</td>'
+                                     html = html + '<td>' + item.kategoriAdi + '</td>'
+                                     html = html + '<td>' + item.urunFiyati + '</td>'
+                                     html = html + '<td>' + item.createDate + '</td>'
+                                     html = html + '<td>' + item.updateDate + '</td>'
+                                     html = html + '<td>' + item.isDelete + '</td>'
+                                     html = html + '<td><a class="deleteById btn btn-danger">Sil</a></td>'
+                                     html = html + '</tr>'
+                                 }
+                                 $('#tbodytr').html(html)
+                             },
+                             error: function (error) {
+                                 console.log(error);
+                             }
+                         });
+                     }
+                     if ($('#entityno').val() == "2") {
+                         $.ajax({
+                             url: 'http://localhost:5257/Admin/Message/MessageGet', // İstek yapılacak URL (uygun şekilde değiştirin)
+                             success: function (data) {
+                                 $('#theadtr').html('<th>Id</th><th>Ad</th><th>Email</th><th>Mesaj</th><th>Konu Id</th><th>Data</th><th>File Path</th><th>Create Date</th><th>Update Date</th><th>Is Delete</th><th><a> </a></th>')
+                                 let html = '';
+                                 for (let item of data) {
+                                     html = html + '<tr>'
+                                     html = html + '<td>' + item.id + '</td>'
+                                     html = html + '<td>' + item.ad + '</td>'
+                                     html = html + '<td>' + item.email + '</td>'
+                                     html = html + '<td>' + item.mesaj + '</td>'
+                                     html = html + '<td>' + item.konuId + '</td>'
+                                     html = html + '<td>' + item.data + '</td>'
+                                     html = html + '<td>' + item.filePath + '</td>'
+                                     html = html + '<td>' + item.createDate + '</td>'
+                                     html = html + '<td>' + item.updateDate + '</td>'
+                                     html = html + '<td>' + item.isDelete + '</td>'
+                                     html = html + '<td><a class="deleteById btn btn-danger">Sil</a></td>'
+                                     html = html + '</tr>'
+                                 }
+                                 $('#tbodytr').html(html)
+                             },
+                             error: function (error) {
+                                 console.log(error);
+                             }
+                         });
+                     }
+                 }
+           ///////////////////////</GET>////////////////////////////////////////
+
+           //////////////////////<DELETE>////////////////////////////////////////
+                 function Delete(triggering) {
+                     if ($('#entityno').val() == "2" && (confirm("Silmek İstediğinize Emin misiniz ?"))) {
+
+                         $.ajax({
+                             method: 'DELETE',
+                             url: 'http://localhost:5257/Admin/Message/DeleteById', //Serverde bir tane post işlemi olsa dahi server bir api değil mvc projesi oldugundan endpointi belirtmeliyiz.
+                             data: { id: $(triggering).closest('tr').find('td:nth-child(1)').text() },
+                             success: function (result) {
+                                 Get();
+                                 console.log(result);
+                             },
+                             error: function (error) {
+                                 console.log(error);
+                             }
+                         });
+                     }
+
+                     if ($('#entityno').val() == "4" && (confirm("Silmek İstediğinize Emin misiniz ?"))) {
+
+                         $.ajax({
+                             method: 'DELETE',
+                             url: 'http://localhost:5257/Admin/Urun/DeleteById', //Serverde bir tane post işlemi olsa dahi server bir api değil mvc projesi oldugundan endpointi belirtmeliyiz.
+                             data: { id: $(triggering).closest('tr').find('td:nth-child(1)').text() },
+                             success: function (result) {
+                                 Get();
+                                 console.log(result);
+                             },
+                             error: function (error) {
+                                 console.log(error);
+                             }
+                         });
+                     }                    
+                 }
+             //////////////////////</DELETE>//////////////////////////////////////
+
+             ////////////////////////<CREATE>/////////////////////////////////////
+
+
+
+
+
+            ////////////////////////</CREATE>/////////////////////////////////////
+
+
         });
-
-
 
     </script>
 }

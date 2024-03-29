@@ -23,5 +23,12 @@ namespace AJAX_for_HTTP_Methods.Areas.Admin.Controllers
             ICollection<Urun> uruns = await urunManager.GetAll();
             return Ok(uruns);
         }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteById(int id)
+        {
+            int sonuc = await urunManager.DeleteByPK(id);
+            return Ok(sonuc);
+        }
     }
 }
