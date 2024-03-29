@@ -7,20 +7,20 @@ namespace AJAX_for_HTTP_Methods.Areas.Admin.Controllers
 {
     [Area("Admin")] // Area alanını belirtmen gerekiyor. Yoksa bulamiyor.
     [Authorize(Roles = "Admin")]
-    public class UrunController(IUrunManager urunManager) : Controller
+    public class MessageController(IMessageManager messageManager) : Controller
     {
-        private readonly IUrunManager urunManager = urunManager;
+        private readonly IMessageManager messageManager = messageManager;
 
 
         public async Task<IActionResult> Index()
         {
-            ICollection<string> tablename = await urunManager.GetAllTableNamesAsync();
+            ICollection<string> tablename = await messageManager.GetAllTableNamesAsync();
             return View(tablename);
         }
 
-        public async Task<IActionResult> UrunGet()
+        public async Task<IActionResult> MessageGet()
         {
-            ICollection<Urun> uruns = await urunManager.GetAll();
+            ICollection<Message> uruns = await messageManager.GetAll();
             return Ok(uruns);
         }
     }

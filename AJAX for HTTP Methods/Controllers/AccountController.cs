@@ -188,7 +188,7 @@ namespace AJAX_for_HTTP_Methods.Controllers
                         else if (rol.First().Contains("Üye"))
                         {
                             notyf.Success("Giriş işlemi başarılı.!");
-                            return RedirectToAction("Index", "Profile");
+                            return RedirectToAction("Index", "Profile", new { area = "" });
                         }
 
                     }

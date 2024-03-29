@@ -1,4 +1,6 @@
-﻿using Asp.Net_Core_Identity.Layers.DataAccess.DBContexts;
+﻿using Asp.Net_Core_Identity.Layers.Bussines.Abstract;
+using Asp.Net_Core_Identity.Layers.Bussines.Concrete;
+using Asp.Net_Core_Identity.Layers.DataAccess.DBContexts;
 using Asp.Net_Core_Identity.Layers.Entities.Concrete;
 using AspNetCoreHero.ToastNotification;
 using Microsoft.AspNetCore.Identity;
@@ -39,6 +41,15 @@ namespace ASP.Net_Core_Identity.MyExtensions.Services
                 options.Lockout.MaxFailedAccessAttempts = 20; //Default olarak 5dk icerisinde 20 kere hatali giris gerceklesirse kullanici hesabi kilitlensin.   
                 #endregion
             });
+            return services;
+        }
+
+        public static IServiceCollection AddScopedAll(this IServiceCollection services)
+        {
+
+            services.AddScoped<IMessageManager, MessageManager>();
+            services.AddScoped<IKonuManager, KonuManager>();
+            services.AddScoped<IUrunManager, UrunManager>();
             return services;
         }
 

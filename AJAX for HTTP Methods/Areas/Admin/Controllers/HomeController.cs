@@ -7,8 +7,10 @@ namespace AJAX_for_HTTP_Methods.Areas.Admin.Controllers
     [Authorize(Roles = "Admin")] // Buraya giris yapilmadan ve giris yapilanlardan ise sadece admin olanlar girebilir.
     public class HomeController : Controller
     {
+
         public IActionResult Index()
         {
+
             return View();
         }
     }

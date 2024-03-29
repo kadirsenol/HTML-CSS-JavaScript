@@ -86,6 +86,18 @@ namespace AJAX_for_HTTP_Methods.Layers.DataAccess.Concrete
             return await dbContext.Set<T>().FirstOrDefaultAsync(expression);
         }
 
+        public async Task<ICollection<string>> GetAllTableNamesAsync()
+        {
+            var tableNames = new List<string>();
+            var entityTypes = dbContext.Model.GetEntityTypes();
+            foreach (var entityType in entityTypes)
+            {
+                var tableName = entityType.GetTableName();
+                tableNames.Add(tableName);
+            }
+            return tableNames;
+        }
+
     }
 
 }

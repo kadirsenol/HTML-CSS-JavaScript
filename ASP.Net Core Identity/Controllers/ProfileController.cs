@@ -7,6 +7,7 @@ namespace ASP.Net_Core_Identity.Controllers
     [Authorize(Roles = "Üye")]
     public class ProfileController : Controller
     {
+
         public async Task<IActionResult> Index()
         {
             return View();

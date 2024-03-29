@@ -8,8 +8,8 @@ namespace AJAX_for_HTTP_Methods.Layers.DataAccess.DBContexts
 {
     public class SqlDbContext : IdentityDbContext<MyUser> //MyUseri IdentityUser olarak kabul et.
     {
-        public SqlDbContext(DbContextOptions<SqlDbContext> options) : base(options) { }
-        public SqlDbContext() { }
+        //public SqlDbContext(DbContextOptions<SqlDbContext> options) : base(options) { }
+        //public SqlDbContext() { }
 
 
         public DbSet<Urun> Urunler { get; set; }
@@ -22,7 +22,10 @@ namespace AJAX_for_HTTP_Methods.Layers.DataAccess.DBContexts
             base.OnModelCreating(modelBuilder);
         }
 
-
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer(@"Server=.;Database=AjaxExample;Trusted_Connection=True; Trust Server Certificate=true; MultipleActiveResultSets=True");
+        }
 
         // Soft delete olarak calistigimiz veritabanimizda delete islemi gerceklestiginde changetracker kayıt olan deleted islemlerini
         // savechange metodunu ezerek durumun bir delete degil update oldugunu belirtip update olacak propları tanimliyoruz.

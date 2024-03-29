@@ -7,6 +7,7 @@ namespace AJAX_for_HTTP_Methods.Controllers
     [Authorize(Roles = "Üye")]
     public class ProfileController : Controller
     {
+
         public async Task<IActionResult> Index()
         {
             return View();

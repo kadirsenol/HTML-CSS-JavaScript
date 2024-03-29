@@ -1,4 +1,6 @@
-﻿using AJAX_for_HTTP_Methods.Layers.DataAccess.DBContexts;
+﻿using AJAX_for_HTTP_Methods.Layers.Bussines.Abstract;
+using AJAX_for_HTTP_Methods.Layers.Bussines.Concrete;
+using AJAX_for_HTTP_Methods.Layers.DataAccess.DBContexts;
 using AJAX_for_HTTP_Methods.Layers.Entities.Concrete;
 using AspNetCoreHero.ToastNotification;
 using Microsoft.AspNetCore.Identity;
@@ -7,6 +9,14 @@ namespace AJAX_for_HTTP_Methods.MyExtensions.Services
 {
     public static class AddServices
     {
+        public static IServiceCollection AddScopedAll(this IServiceCollection services)
+        {
+
+            services.AddScoped<IMessageManager, MessageManager>();
+            services.AddScoped<IKonuManager, KonuManager>();
+            services.AddScoped<IUrunManager, UrunManager>();
+            return services;
+        }
         public static IServiceCollection AddIdentitySettings(this IServiceCollection services)
         {
             //Burasi IOC Container a Identity eklemesini soyluyoruz yani Identity'in sunduğu özelliklerden (kimlik doğrulama, yetkilendirme, roller yönetimi vb.) yararlanabilmek için. Bunu kullanmazsak bu sunulan özelliklerden yararlanamayız.

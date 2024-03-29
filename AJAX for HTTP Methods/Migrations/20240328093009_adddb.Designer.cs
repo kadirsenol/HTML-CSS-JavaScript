@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AJAX_for_HTTP_Methods.Migrations
 {
     [DbContext(typeof(SqlDbContext))]
-    [Migration("20240327130755_createdb")]
-    partial class createdb
+    [Migration("20240328093009_adddb")]
+    partial class adddb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -18,8 +18,6 @@ namespace Cookie_AutoMapper_Notfy_SoftDelete_GL.Filter.Layers.Bussines.Concrete
             {
                 return user;
             }
-
-
         }
     }
 }

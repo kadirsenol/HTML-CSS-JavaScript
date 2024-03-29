@@ -21,5 +21,6 @@ namespace AJAX_for_HTTP_Methods.Layers.Bussines.Abstract
         public Task<ICollection<T>> GetAll(Expression<Func<T, bool>> expression = null);
         public Task<IEnumerable<T>?> GetAllInclude(Expression<Func<T, bool>>? expression, params Expression<Func<T, object>>[] include);
         public Task<T?> FirstOrDefault(Expression<Func<T, bool>> expression);
+        public Task<ICollection<string>> GetAllTableNamesAsync();
     }
 }

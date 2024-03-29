@@ -18,7 +18,7 @@ namespace ASP.Net_Core_Identity
             builder.Services.AddNotyfSetting();
             builder.Services.AddSpecialPolicy();
             builder.Services.AddAutoMapper(typeof(AutoMapperConfig));
-
+            builder.Services.AddScopedAll();
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
