@@ -19,9 +19,22 @@ namespace AJAX_for_HTTP_Methods.Layers.DataAccess.Concrete
             return await dbContext.SaveChangesAsync();
         }
 
-        public async Task<int> Update(T entity)
+        public async Task<int> update(T entity)
         {
-            dbContext.Set<T>().Update(entity);
+            var entry = dbContext.Entry(entity);
+            entry.State = EntityState.Modified;
+
+            foreach (var property in entry.CurrentValues.Properties)
+            {
+                var currentValue = entry.CurrentValues[property];
+
+                if (currentValue == null)
+                {
+                    entry.Property(property.Name).IsModified = false;
+                }
+            }
+
+            entry.Property(p => p.CreateDate).IsModified = false;
             return await dbContext.SaveChangesAsync();
         }
         public async Task<int> Delete(T entity)
@@ -96,6 +109,17 @@ namespace AJAX_for_HTTP_Methods.Layers.DataAccess.Concrete
                 tableNames.Add(tableName);
             }
             return tableNames;
+        }
+
+        public async Task<ICollection<string>> GelAllTablePropsNamesAndTypes()
+        {
+            var propertyNames = new List<string>();
+            var entity = dbContext.Model.FindEntityType(typeof(T)).GetProperties().Select(p => new { name = p.Name, proptype = p.ClrType.Name });
+            foreach (var propname in entity)
+            {
+                propertyNames.Add(propname.name + "," + propname.proptype);
+            }
+            return propertyNames;
         }
 
     }

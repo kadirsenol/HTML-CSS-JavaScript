@@ -89,7 +89,7 @@ namespace AJAX_for_HTTP_Methods.Migrations
                         .HasColumnType("bit")
                         .HasDefaultValue(false);
 
-                    b.Property<int>("KonuId")
+                    b.Property<int>("Konuid")
                         .HasColumnType("int");
 
                     b.Property<string>("Mesaj")
@@ -104,7 +104,7 @@ namespace AJAX_for_HTTP_Methods.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("KonuId");
+                    b.HasIndex("Konuid");
 
                     b.ToTable("Mesajlar");
                 });
@@ -385,7 +385,7 @@ namespace AJAX_for_HTTP_Methods.Migrations
                 {
                     b.HasOne("AJAX_for_HTTP_Methods.Layers.Entities.Concrete.Konu", "Konu")
                         .WithMany("Mesajlar")
-                        .HasForeignKey("KonuId")
+                        .HasForeignKey("Konuid")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

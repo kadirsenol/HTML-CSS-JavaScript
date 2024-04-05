@@ -10,7 +10,7 @@ namespace AJAX_for_HTTP_Methods.Layers.Bussines.Abstract
 
         //CRUD
         public Task<int> Insert(T entity);
-        public Task<int> Update(T entity);
+        public Task<int> update(T entity);
         public Task<int> Delete(T entity);
         public Task<int> DeleteByPK(TId pk);
         public Task<int> DeleteAll(Expression<Func<T, bool>> expression = null);
@@ -22,5 +22,6 @@ namespace AJAX_for_HTTP_Methods.Layers.Bussines.Abstract
         public Task<IEnumerable<T>?> GetAllInclude(Expression<Func<T, bool>>? expression, params Expression<Func<T, object>>[] include);
         public Task<T?> FirstOrDefault(Expression<Func<T, bool>> expression);
         public Task<ICollection<string>> GetAllTableNamesAsync();
+        public Task<ICollection<string>> GelAllTablePropsNamesAndTypes();
     }
 }

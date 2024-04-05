@@ -67,9 +67,9 @@ namespace AJAX_for_HTTP_Methods.Layers.Bussines.Concrete
             return await _repo.Insert(entity);
         }
 
-        public virtual async Task<int> Update(T entity)
+        public virtual async Task<int> update(T entity)
         {
-            return await _repo.Update(entity);
+            return await _repo.update(entity);
         }
 
         public async virtual Task<T?> FirstOrDefault(Expression<Func<T, bool>> expression)
@@ -84,6 +84,11 @@ namespace AJAX_for_HTTP_Methods.Layers.Bussines.Concrete
         public async virtual Task<ICollection<string>> GetAllTableNamesAsync()
         {
             return await _repo.GetAllTableNamesAsync();
+        }
+
+        public async Task<ICollection<string>> GelAllTablePropsNamesAndTypes()
+        {
+            return await _repo.GelAllTablePropsNamesAndTypes();
         }
     }
 }

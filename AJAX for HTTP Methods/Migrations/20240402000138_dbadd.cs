@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace AJAX_for_HTTP_Methods.Migrations
 {
     /// <inheritdoc />
-    public partial class adddb : Migration
+    public partial class dbadd : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -207,7 +207,7 @@ namespace AJAX_for_HTTP_Methods.Migrations
                     Ad = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Mesaj = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
-                    KonuId = table.Column<int>(type: "int", nullable: false),
+                    Konuid = table.Column<int>(type: "int", nullable: false),
                     Data = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     FilePath = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GetDate()"),
@@ -218,8 +218,8 @@ namespace AJAX_for_HTTP_Methods.Migrations
                 {
                     table.PrimaryKey("PK_Mesajlar", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Mesajlar_Konular_KonuId",
-                        column: x => x.KonuId,
+                        name: "FK_Mesajlar_Konular_Konuid",
+                        column: x => x.Konuid,
                         principalTable: "Konular",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -265,9 +265,9 @@ namespace AJAX_for_HTTP_Methods.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Mesajlar_KonuId",
+                name: "IX_Mesajlar_Konuid",
                 table: "Mesajlar",
-                column: "KonuId");
+                column: "Konuid");
         }
 
         /// <inheritdoc />
